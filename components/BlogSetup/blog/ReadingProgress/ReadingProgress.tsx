@@ -31,8 +31,8 @@ export const ReadingProgress = ({
     });
 
     return (
-        <Flex w="100vw" position="fixed" top="67px" left="0" sx={{zIndex: 100}}>
-            <Flex w={`${width}%`} h="4px" bg="brand.500" />
+        <Flex w="100vw" position="fixed" top="69px" left="0" sx={{zIndex: 100}}>
+            <Flex w={`${width}%`} h="2px" bg="brand.500" />
         </Flex>
     );
 };
