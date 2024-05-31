@@ -1,0 +1,29 @@
+{
+    "site": {
+        "title": "PaperChat - AI-powered document conversations",
+        "base_url": "/",
+        "favicon": "/images/favicon.ico",
+        "logo": "/logo.png",
+        "logo_width": "400",
+        "logo_height": "400",
+        "logo_text": "PaperChat"
+    },
+
+    "settings": {
+        "pagination": 4,
+        "summary_length": 120,
+        "blog_folder": "posts"
+    },
+
+    "params": {
+        "tag_manager_id": "GTM-M4RLHR5V",
+        "contact_form_action": "#",
+        "copyright": "Copyright © 2023 PaperChat"
+    },
+
+    "metadata": {
+        "meta_author": "Costin Gheorghe",
+        "meta_image": "/images/og-image.png",
+        "meta_description": "Founder @ PaperChat"
+    }
+}

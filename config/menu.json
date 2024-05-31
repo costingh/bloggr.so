@@ -1,0 +1,61 @@
+{
+    "main": [
+        {
+            "name": "Home",
+            "url": "/"
+        },
+        {
+            "name": "Dashboard",
+            "url": "https://www.paperchat.io"
+        },
+        {
+            "name": "Authors",
+            "url": "/authors"
+        }
+    ],
+    "footer": [
+        {
+            "name": "Resources",
+            "links": [
+                {
+                    "name": "Dashboard",
+                    "url": "https://paperchat.io"
+                },
+                {
+                    "name": "Authors",
+                    "url": "/authors"
+                }
+            ]
+        },
+        {
+            "name": "Company",
+            "links": [
+                {
+                    "name": "Pricing",
+                    "url": "https://paperchat.io/#pricing"
+                },
+                {
+                    "name": "FAQ",
+                    "url": "https://paperchat.io/#faq"
+                },
+                {
+                    "name": "Features",
+                    "url": "https://paperchat.io/#features"
+                }
+            ]
+        },
+        {
+            "name": "Legal",
+            "links": [
+                {
+                    "name": "Terms & Conditions",
+                    "url": "/terms-and-conditions"
+                },
+                {
+                    "name": "Privacy Policy",
+                    "url": "/privacy-policy"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+.btn {
+    @apply inline-block rounded-lg border px-5 py-2 font-semibold transition;
+}
+
+.btn-primary {
+    @apply bg-indigo-600 text-white;
+}
+
+.btn-outline-primary {
+    @apply border-indigo-600 bg-transparent hover:bg-indigo-600 hover:text-white;
+}
