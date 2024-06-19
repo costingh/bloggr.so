@@ -11,4 +11,9 @@ export enum Routes {
   terms = "/terms",
   submit = "/submit",
   profile = "/profile",
+  blogHome = "/site",
+  blogSettings = "site/*/settings",
+  blogDomains = "site/*/domains",
+  blogAppearance = "site/*/appearance"
+
 }

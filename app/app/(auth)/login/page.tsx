@@ -88,21 +88,22 @@ export default function LoginPage() {
                     mt="-60px"
                     ml="0px"
                 >
-                    <Flex w="32px" h="32px" as="a" href="/">
+                    <Flex as="a" href="/">
                         <Image
                             src="/logo.png"
                             alt="logo"
-                            width={32}
-                            height={32}
+                            width={100}
+                            height={50}
+                            style={{borderRadius: '10px'}}
                         />
                     </Flex>
-                    <Text
+                    {/* <Text
                         color={primaryTextColor}
                         fontWeight="extrabold"
                         ml="8px"
                     >
                         {brandName}
-                    </Text>
+                    </Text> */}
                 </Flex>
                 <Text
                     textAlign="left"
@@ -130,6 +131,7 @@ export default function LoginPage() {
                     }}
                     // onClick={onGoogleSignIn}
                     // isLoading={isSigningInWithGoogle}
+                    onClick={() => signIn("google")}
                     color={primaryTextColor}
                 >
                     Continue with Google

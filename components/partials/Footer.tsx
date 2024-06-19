@@ -7,6 +7,7 @@ import Link from 'next/link'
 
 const Footer = () => {
     const { copyright } = config.params
+
     return (
         <footer className="bg-[#eef2ff]">
             <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">

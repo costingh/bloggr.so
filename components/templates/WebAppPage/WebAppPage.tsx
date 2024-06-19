@@ -30,12 +30,16 @@ import { useSession } from "next-auth/react";
 import { TbMenu2 } from "react-icons/tb";
 import { BlogsList } from "@/components/BlogsList/page";
 import { BlogSetup } from "@/components/BlogSetup/page";
+import BlogTemplateConfiguration from "@/components/BlogSetup/BlogTemplateConfiguration/page";
+import BlogDomainsSettingsTab from "@/components/BlogSetup/BlogDomainsSettingsTab/page";
+import BlogAppearance from "@/components/BlogSetup/BlogAppearance/page";
 
 type WebAppPageProps = {
 	currentPage: Routes;
+	blogData?: any;
 };
 
-export const WebAppPage = ({ currentPage }: WebAppPageProps) => {
+export const WebAppPage = ({ currentPage, blogData }: WebAppPageProps) => {
 	const isMobile = useMobile();
 
     const { data: session, status } = useSession();
@@ -119,6 +123,10 @@ export const WebAppPage = ({ currentPage }: WebAppPageProps) => {
 					>
 						{currentPage === Routes.dashboard && <BlogsList/>}
 						{currentPage === Routes.createNewBlog && <BlogSetup/> }
+						{currentPage === Routes.blogHome && <BlogTemplateConfiguration blogData={blogData}/> }
+						{currentPage === Routes.blogSettings && <BlogTemplateConfiguration blogData={blogData}/> }
+						{currentPage === Routes.blogDomains && <BlogDomainsSettingsTab blogData={blogData}/> }
+						{currentPage === Routes.blogAppearance && <BlogAppearance blogData={blogData}/> }
 					</Flex>
 				</>
 			)}

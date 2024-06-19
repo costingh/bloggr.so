@@ -3,6 +3,8 @@ import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
 import Posts from "@/components/posts";
 import CreatePostButton from "@/components/create-post-button";
+import { WebAppPage } from "@/components/templates/WebAppPage/WebAppPage";
+import { Routes } from "@/config/routes";
 
 export default async function SitePosts({
     params,
@@ -25,9 +27,16 @@ export default async function SitePosts({
 
     const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
+    const blogData = {
+        url,
+        siteData: data
+    }
+
     return (
         <>
-            <div className="flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
+            <WebAppPage currentPage={Routes.blogHome} blogData={blogData} />
+
+            {/* <div className="flex flex-col justify-between space-y-4 sm:flex-row sm:space-y-0 w-full min-h-[100vh]">
                 <div className="flex flex-col items-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
                     <h1 className="font-cal w-60 truncate text-xl font-bold dark:text-white sm:w-auto sm:text-3xl">
                         All Posts for {data.name}
@@ -45,9 +54,8 @@ export default async function SitePosts({
                         {url} ↗
                     </a>
                 </div>
-                <CreatePostButton />
             </div>
-            <Posts siteId={decodeURIComponent(params.id)} />
+            <Posts siteId={decodeURIComponent(params.id)} /> */}
         </>
     );
 }

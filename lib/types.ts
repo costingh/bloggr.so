@@ -56,3 +56,57 @@ export interface DomainVerificationResponse {
         reason: string;
     }[];
 }
+
+type Logo = {
+    src: string;
+    redirectUrl?: string
+} 
+
+type ButtonVariant = 'outline' | 'solid' | 'simple'
+
+type Button = {
+    text: string
+    link: string
+    color?: string
+    borderRadius?: string 
+    variant?: ButtonVariant
+}
+
+export type NavbarConfig = {
+    brandName: string
+    logo: Logo
+    links: MenuItem[]
+    ctaButtons: Button[]
+}
+
+export type MenuItem = {
+    name: string;
+    url: string;
+    hasChildren?: boolean;
+    children?: MenuItem[];
+}
+
+export type FooterItem = {
+    name: string;
+    url: string;
+}
+
+export type SocialItem = {
+    platform: string;
+    tooltip?: string;
+    url: string;
+}
+
+type FooterColumn = {
+    columnTitle: string
+    links?: FooterItem[]
+    socials?: SocialItem[]
+}
+
+export type FooterConfig = {
+    brandName?: string
+    logo: Logo
+    slogan?: string
+    copyright?: string
+    columns: FooterColumn[]
+}

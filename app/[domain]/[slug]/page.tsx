@@ -41,6 +41,7 @@ import { LoomEmbed } from "@/components/BlogSetup/blog/Article/LoomEmbed";
 import { YouTubeEmbed } from "@/components/BlogSetup/blog/Article/YouTubeEmbed";
 import { TweetEmbed } from "@/components/BlogSetup/blog/Article/TweetEmbed";
 import Base from "@/layouts/BaseLayout";
+import Header from "@/components/partials/Header";
 
 interface Section {
     sectionTitle: string;

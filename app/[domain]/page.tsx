@@ -1,3 +1,5 @@
+
+import { getFeaturedPost, processPosts } from "@/lib/utils/postProcessor";
 import Link from "next/link";
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
@@ -9,8 +11,8 @@ import Posts from "@/components/partials/Posts";
 import { Post } from "@/types/post.types";
 import { NotionPost } from "@/types/notion.types";
 import HighlightedPost from "@/components/partials/HighlightedPost";
-import { getFeaturedPost, processPosts } from "@/lib/utils/postProcessor";
-const { blog_folder } = config.settings;
+import Base from "@/layouts/BaseLayout";
+import Pagination from "@/components/partials/Pagination";
 
 export async function generateStaticParams() {
     const allSites = await prisma.site.findMany({
@@ -18,10 +20,6 @@ export async function generateStaticParams() {
             subdomain: true,
             customDomain: true,
         },
-        // // feel free to remove this filter if you want to generate paths for all sites
-        // where: {
-        //     subdomain: "demo",
-        // },
     });
 
     const allPaths = allSites
@@ -40,15 +38,25 @@ export async function generateStaticParams() {
 
 export default async function SiteHomePage({
     params,
+    searchParams,
 }: {
     params: { domain: string };
+    searchParams: {page?: string}
 }) {
+
+    console.log(searchParams)
     const domain = decodeURIComponent(params.domain);
     const data = await getSiteData(domain);
 
     if (!data) {
         notFound();
     }
+
+    const postsPerPage = 2; // Number of posts per page
+    const currentPage = searchParams?.page ? parseInt(searchParams.page as string, 10) : 1;
+
+    const startIndex = (currentPage - 1) * postsPerPage;
+    const endIndex = currentPage * postsPerPage;
 
     const posts =
         (await getPostsForSite(domain, data?.postsDatabaseId || "")) || [];
@@ -63,46 +71,56 @@ export default async function SiteHomePage({
     const featuredPost = getFeaturedPost(posts as NotionPost[], data?.mapping);
     const currentPosts = processPosts(posts as NotionPost[], data?.mapping);
 
+    // Paginate posts
+    const paginatedPosts = currentPosts.slice(startIndex, endIndex);
+
+    const totalPages = Math.ceil(currentPosts.length / postsPerPage);
+
+    const title = "By blog";
+    const description = "My blog amazing description";
+    const content =
+        "asdas das dasd klasjdklaks jdlkasjkldj hqiwsjdkla skldaskd;laslkjdf klwqehkljf jsk ldflkjwjadiofg sdlkfgkljsd";
+    const meta_title = "My blog";
+    const image = "image";
+    const noindex = true;
+    const canonical = "true";
+
     return (
         <>
-           
+            <Base
+                title={title}
+                description={
+                    description ? description : content.slice(0, 120)
+                }
+                meta_title={meta_title}
+                image={image}
+                noindex={noindex}
+                canonical={canonical}
+            >
                 <section className="section">
                     <div className="container">
-                        {featuredPost && <HighlightedPost
-                            post={currentPosts[currentPosts.length - 1]}
-                            authors={authors}
-                        />}
+                        {featuredPost && (
+                            <HighlightedPost
+                                post={featuredPost}
+                                authors={authors}
+                            />
+                        )}
                         <Posts
                             className="mb-16"
-                            posts={currentPosts}
+                            posts={paginatedPosts}
                             authors={authors}
                         />
-                        {/* <Pagination
+                        <Pagination
                             totalPages={totalPages}
                             currentPage={currentPage}
-                        /> */}
+                            basePath={`/${params.domain}`} // Base path for pagination links
+                        />
                     </div>
                 </section>
-                {/* {postSlug.includes(slug) ? (
-                    <PostSingle
-                        slug={slug}
-                        post={data}
-                        authors={authors}
-                        posts={posts}
-                    />
-                ) : layout === "404" ? (
-                    <NotFound data={data} />
-                ) : layout === "about" ? (
-                    <About data={data} />
-                ) : layout === "contact" ? (
-                    <Contact data={data} />
-                ) : (
-                    <Default data={data} />
-                )} */}
+            </Base>
         </>
     );
 }
-
 
 
 

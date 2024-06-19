@@ -14,8 +14,8 @@ export default function Home() {
     <>
       <Header />
       <main className="">
-        <Waitlist/>
         <Hero />
+        <Waitlist/>
         <ExplainerVideo />
         <Features />
         {/* <Testimonials /> */}

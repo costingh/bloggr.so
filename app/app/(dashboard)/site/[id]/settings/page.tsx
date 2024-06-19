@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
-import Form from "@/components/form";
 import { updateSite } from "@/lib/actions";
-import DeleteSiteForm from "@/components/form/delete-site-form";
+import { WebAppPage } from "@/components/templates/WebAppPage/WebAppPage";
+import { Routes } from "@/config/routes";
 
 export default async function SiteSettingsIndex({
     params,
@@ -14,36 +14,14 @@ export default async function SiteSettingsIndex({
         },
     });
 
+    const url = `${data?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
+
+    const blogData = {
+        url,
+        siteData: data
+    }
+
     return (
-        <div className="flex flex-col space-y-6">
-            <Form
-                title="Name"
-                description="The name of your site. This will be used as the meta title on Google as well."
-                helpText="Please use 32 characters maximum."
-                inputAttrs={{
-                    name: "name",
-                    type: "text",
-                    defaultValue: data?.name!,
-                    placeholder: "My Awesome Site",
-                    maxLength: 32,
-                }}
-                handleSubmit={updateSite}
-            />
-
-            <Form
-                title="Description"
-                description="The description of your site. This will be used as the meta description on Google as well."
-                helpText="Include SEO-optimized keywords that you want to rank for."
-                inputAttrs={{
-                    name: "description",
-                    type: "text",
-                    defaultValue: data?.description!,
-                    placeholder: "A blog about really interesting things.",
-                }}
-                handleSubmit={updateSite}
-            />
-
-            <DeleteSiteForm siteName={data?.name!} />
-        </div>
+        <WebAppPage currentPage={Routes.blogSettings} blogData={blogData} />
     );
 }

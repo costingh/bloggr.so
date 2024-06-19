@@ -104,9 +104,9 @@ export default function RootLayout({
             <html
                 lang="en"
                 suppressHydrationWarning
-                data-theme={uiColorMode}
-                style={{ colorScheme: uiColorMode }}
-                className={uiColorMode}
+                // data-theme={uiColorMode}
+                // style={{ colorScheme: uiColorMode }}
+                // className={uiColorMode}
             >
                 <Head>
                     {/* google font css */}
@@ -160,7 +160,8 @@ export default function RootLayout({
                     />
                 </Head>
                 <body
-                    className={`chakra-ui-${uiColorMode} ${GeistSans.className}`}
+                    // className={`chakra-ui-${uiColorMode} ${GeistSans.className}`}
+                    className={`${GeistSans.className}`}
                     style={{
                         overflowX: "hidden",
                     }}

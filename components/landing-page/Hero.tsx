@@ -98,7 +98,7 @@ export const Hero = ({
                         fontSize={["14px", "15px", "18px", "20px"]}
                         maxW={["70%", "70%", "70%", "560px"]}
                     >
-                        Start creating your blog using Notion as CMS
+                        Create a blog from Notion content
                     </Text>
 
                     <Flex
@@ -143,7 +143,7 @@ export const Hero = ({
                                     >
                                         {isLogged
                                             ? "Start creating"
-                                            : "Try FREE now"}
+                                            : "Try it NOW"}
                                     </Button>
                                 </Flex>
                             )}
@@ -157,14 +157,23 @@ export const Hero = ({
                                 >
                                     <Flex flexDir="column">
                                         <Button
-                                            variant="ghost"
+                                            variant="outline"
                                             as="a"
                                             href={demoCalendlyLink}
+
+                                            size="md"
+                                            colorScheme="brand"
+                                            h="50px"
+                                            minH="50px"
+                                            w="220px"
+                                            px="24px"
+                                            borderRadius="16px"
+
                                             target="_blank"
                                             rel="noopener"
                                             fontWeight={500}
                                             pr="8px"
-                                            ml={["0", "0", "24px"]}
+                                            ml={["0", "0", "15px"]}
                                             leftIcon={
                                                 <Flex mb="2px">
                                                     <TbCalendarDue />

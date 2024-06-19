@@ -1,11 +1,14 @@
 import React from "react";
 import { Box, Container, Flex } from "@chakra-ui/react";
+import { useColorModeValues } from "@/lib/hooks/useColorModeValues";
 
 interface Props {
     content: React.ReactNode;
 }
 
 const ArticleContent = ({ content }: Props) => {
+    const { secondaryTextColor, primaryTextColor } = useColorModeValues();
+
     return (
         <Flex flexDir="column">
             <Box
@@ -18,6 +21,7 @@ const ArticleContent = ({ content }: Props) => {
                         fontWeight: 800,
                         mt: "24px",
                         mb: "16px",
+                        color: primaryTextColor
                     },
                     h2: {
                         fontSize: "26px",
@@ -25,6 +29,7 @@ const ArticleContent = ({ content }: Props) => {
                         fontWeight: 700,
                         mt: "64px",
                         mb: "16px",
+                        color: primaryTextColor
                     },
                     "ul, ol": {
                         ml: "24px",
@@ -40,6 +45,7 @@ const ArticleContent = ({ content }: Props) => {
                     },
                     p: {
                         my: "24px",
+                        color: secondaryTextColor
                     },
                     a: {
                         color: "primary.400",

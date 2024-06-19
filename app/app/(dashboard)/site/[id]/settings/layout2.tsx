@@ -46,7 +46,7 @@ export default async function SiteAnalyticsLayout({
                     {url} ↗
                 </a>
             </div>
-            <SiteSettingsNav />
+            <SiteSettingsNav activeTab='settings' />
             {children}
         </>
     );

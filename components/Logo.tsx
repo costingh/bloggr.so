@@ -4,14 +4,15 @@ import Link from "next/link";
 
 interface LogoProps {
     src?: string;
+    redirectUrl?: string;
 }
 
-const Logo: React.FC<LogoProps> = ({ src }) => {
+const Logo: React.FC<LogoProps> = ({ src, redirectUrl }) => {
     // Destructuring items from config object
     const { logo, logo_width, logo_height, logo_text, title } = config.site;
 
     return (
-        <Link href="/" passHref>
+        <Link href={redirectUrl || '/'} passHref>
             {/* <a className="navbar-brand block"> */}
                 {src || logo ? (
                     <Image

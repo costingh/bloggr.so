@@ -8,6 +8,7 @@ import { Footer1 } from "@/components/BlogSetup/blog/Footer1";
 import Header from "@/components/partials/Header";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
+import { Footer } from '@/components/landing-page/Footer';
 
 interface BaseLayoutProps {
     title?: string;
@@ -125,7 +126,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({
             </Head>
             <Header />
             {children}
-            <Footer1 />
+            <Footer />
         </React.Fragment>
     );
 };

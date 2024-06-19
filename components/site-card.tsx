@@ -1,16 +1,21 @@
 import BlurImage from "@/components/blur-image";
 import { placeholderBlurhash, random } from "@/lib/utils";
 import { Site } from "@prisma/client";
-import { BarChart, ExternalLink } from "lucide-react";
+import { BarChart, ExternalLink, Settings2 } from "lucide-react";
+import { useColorModeValues } from "@/lib/hooks/useColorModeValues";
+
 import Link from "next/link";
 
 import {
 	useColorModeValue,
-    Box
+    Box,
+    Text
 } from "@chakra-ui/react";
 
 export default function SiteCard({ data }: { data: Site }) {
     const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
+    const { primaryTextColor, borderColor, baseTextColor } = useColorModeValues();
+
     const menuItemActiveBgColor = useColorModeValue(
 		"blackAlpha.50",
 		"whiteAlpha.50"
@@ -32,15 +37,22 @@ export default function SiteCard({ data }: { data: Site }) {
                     blurDataURL={data.imageBlurhash ?? placeholderBlurhash}
                 />
                 <div className="p-4">
-                    <h3 className="font-cal my-0 truncate text-[17px] font-medium tracking-wide dark:text-stone-400">
-                        {data.name}
-                    </h3>
+                <Text
+                    textAlign="left"
+                    fontSize="16px"
+                    fontWeight="semibold"
+                    as="h2"
+                    color={primaryTextColor}
+                >
+                    {data.name}
+                </Text>
+                 
                     <p className="mt-2 line-clamp-1 text-sm font-normal leading-snug text-stone-500 dark:text-stone-400">
                         {data.description}
                     </p>
                 </div>
             </Link>
-            <div className="absolute bottom-4 flex w-full justify-between space-x-4 px-4" >
+            <div className="absolute bottom-4 flex w-full justify-between space-x-4 px-2" >
                 <a
                     href={
                         process.env.NEXT_PUBLIC_VERCEL_ENV
@@ -53,6 +65,14 @@ export default function SiteCard({ data }: { data: Site }) {
                 >
                     {url} ↗
                 </a>
+                <div className="flex space-x-4">
+                <Link
+                    href={`/site/${data.id}`}
+                    className="flex items-center rounded-md  transition-colors hover:bg-gray-500 "
+                >
+                    <Settings2 height={16} />
+                    {/* <p>{random(10, 40)}%</p> */}
+                </Link>
                 <Link
                     href={`/site/${data.id}/analytics`}
                     className="flex items-center rounded-md bg-green-100 px-2 py-1 text-sm font-medium text-green-600 transition-colors hover:bg-green-200 dark:bg-green-900 dark:bg-opacity-50 dark:text-green-400 dark:hover:bg-green-800 dark:hover:bg-opacity-50"
@@ -60,6 +80,7 @@ export default function SiteCard({ data }: { data: Site }) {
                     <BarChart height={16} />
                     {/* <p>{random(10, 40)}%</p> */}
                 </Link>
+                </div>
             </div>
         </Box>
     );

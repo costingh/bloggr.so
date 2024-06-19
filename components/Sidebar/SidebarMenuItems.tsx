@@ -200,17 +200,15 @@ export const SidebarMenuItems: React.FC<MenuProps> = ({
 			<Flex alignItems="flex-start" flexDirection="column">
 				<Flex alignItems="center" mb="24px">
 					<Flex
-						w="32px"
-						h="32px"
-						mr="8px"
 						overflow="hidden"
 						bgColor="blackAlpha.200"
 					>
 						<Image
-							src="/logo.png"
+							src="/logo2.png"
 							alt="logo"
-							width={32}
-							height={32}
+							width={30}
+							height={50}
+							style={{marginRight: '10px'}}
 						/>
 					</Flex>
 					<NextJsChakraLink
@@ -233,47 +231,74 @@ export const SidebarMenuItems: React.FC<MenuProps> = ({
 					<MenuLabel>Dashboard</MenuLabel>
 				</MenuItem>
 
-				<Text
-					fontSize="18px"
-					fontWeight="semibold"
-					letterSpacing="-0.45px"
-					color={sectionColor}
-					mt="16px"
-					mb="4px"
-					mx="8px"
-				>
-					Resources
-				</Text>
-				<MenuItem
-					route={`/#pricing`}
-					currentPage={currentPage}
-					isExternal
-					onClick={onMenuItemClick}
-					loadingRoute={loadingRoute}
-				>
-					<TbStar size="16px" /> &nbsp;
-					<MenuLabel>Upgrade</MenuLabel>
-				</MenuItem>
-				<MenuItem
-					route={Routes.affiliates}
-					currentPage={currentPage}
-					isExternal
-					onClick={onMenuItemClick}
-					loadingRoute={loadingRoute}
-				>
-					<TbHeartHandshake size="16px" /> &nbsp;
-					<MenuLabel>Affiliate program</MenuLabel>
-				</MenuItem>
-				<MenuItem
-					route={cannyUrl}
-					currentPage={currentPage}
-					isExternal
-					onClick={onMenuItemClick}
-					loadingRoute={loadingRoute}
-				>
-					<TbBrandHipchat size="16px" /> &nbsp;
-					<MenuLabel>Feedback</MenuLabel>
-				</MenuItem>
+				{currentPage == Routes.blogHome ? (
+					<>
+						<MenuItem
+							route={`/content`}
+							currentPage={currentPage}
+							onClick={onMenuItemClick}
+							loadingRoute={loadingRoute}
+						>
+							<TbStar size="16px" /> &nbsp;
+							<MenuLabel>Content</MenuLabel>
+						</MenuItem>
+						<MenuItem
+							route={`/configuration`}
+							currentPage={currentPage}
+							onClick={onMenuItemClick}
+							loadingRoute={loadingRoute}
+						>
+							<TbBrandHipchat size="16px" /> &nbsp;
+							<MenuLabel>Personalize</MenuLabel>
+						</MenuItem>
+					</>
+				) : (
+					<>
+					
+						<Text
+							fontSize="18px"
+							fontWeight="semibold"
+							letterSpacing="-0.45px"
+							color={sectionColor}
+							mt="16px"
+							mb="4px"
+							mx="8px"
+						>
+							Resources
+						</Text>
+						<MenuItem
+							route={`/#pricing`}
+							currentPage={currentPage}
+							isExternal
+							onClick={onMenuItemClick}
+							loadingRoute={loadingRoute}
+						>
+							<TbStar size="16px" /> &nbsp;
+							<MenuLabel>Upgrade</MenuLabel>
+						</MenuItem>
+						<MenuItem
+							route={Routes.affiliates}
+							currentPage={currentPage}
+							isExternal
+							onClick={onMenuItemClick}
+							loadingRoute={loadingRoute}
+						>
+							<TbHeartHandshake size="16px" /> &nbsp;
+							<MenuLabel>Affiliate program</MenuLabel>
+						</MenuItem>
+						<MenuItem
+							route={cannyUrl}
+							currentPage={currentPage}
+							isExternal
+							onClick={onMenuItemClick}
+							loadingRoute={loadingRoute}
+						>
+							<TbBrandHipchat size="16px" /> &nbsp;
+							<MenuLabel>Feedback</MenuLabel>
+						</MenuItem>
+					</>
+				)}
+
 				{/* uncomment if you are using the Canny Changelog widget */}
 				{/* <MenuItem currentPage={currentPage} data-canny-changelog isExternal>
           <TbSpeakerphone size="16px" /> &nbsp;

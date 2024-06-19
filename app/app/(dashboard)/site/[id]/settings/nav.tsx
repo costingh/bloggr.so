@@ -2,17 +2,20 @@
 
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useParams, useSelectedLayoutSegment } from "next/navigation";
+import { useParams } from "next/navigation";
 
-export default function SiteSettingsNav() {
+type Props = {
+    activeTab: 'settings' | 'domains' | 'appearance'
+}
+
+export default function SiteSettingsNav({activeTab} : Props) {
     const { id } = useParams() as { id?: string };
-    const segment = useSelectedLayoutSegment();
 
     const navItems = [
         {
             name: "General",
             href: `/site/${id}/settings`,
-            segment: null,
+            segment: 'settings',
         },
         {
             name: "Domains",
@@ -35,7 +38,7 @@ export default function SiteSettingsNav() {
                     // Change style depending on whether the link is active
                     className={cn(
                         "rounded-md px-2 py-1 text-sm font-medium transition-colors active:bg-stone-200 dark:active:bg-stone-600",
-                        segment === item.segment
+                        activeTab === item.segment
                             ? "bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-400"
                             : "text-stone-600 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800",
                     )}

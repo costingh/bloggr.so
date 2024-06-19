@@ -27,7 +27,7 @@ export const Footer1 = () => {
     return (
         <Section flexDir="column" mt="80px">
             <Flex
-            sx={{width: '100%'}}
+                sx={{width: '100%'}}
                 maxW="container.xl"
                 flexDir="column"
                 fontSize="12px"

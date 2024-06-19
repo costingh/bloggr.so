@@ -97,25 +97,18 @@ export const BlogsList = ({ limit }: { limit?: number }) => {
 				justifyContent="space-between"
 				w="100%"
 			>
-				<h2 style={{ fontSize: "18px" }}>Your blogs</h2>
+				<h2 style={{ fontSize: "16px" }}>Your blogs</h2>
                 <Button
                     isLoading={false}
                     isDisabled={false}
                     onClick={handleCreateNewBlog}
+					sx={{fontSize: '14px'}}
                 >
                     Create new blog
                 </Button>
 			</Flex>
 
-			<div className="flex flex-col space-y-6">
-                {/* <div className="flex items-center justify-between">
-                    <h1 className="font-cal text-3xl font-bold dark:text-white">
-                        Top Sites
-                    </h1>
-                    <Suspense fallback={null}>
-                        <OverviewSitesCTA />
-                    </Suspense>
-                </div> */}
+			<div className="flex flex-col space-y-6 mt-5">
                 <Suspense
                     fallback={
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">

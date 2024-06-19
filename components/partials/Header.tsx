@@ -1,50 +1,90 @@
-import Logo from '@/components/Logo';
-import menu from '@/config/menu.json';
-import SearchModal from '@/components/partials/SearchModal';
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import { IoSearch } from 'react-icons/io5';
+import Logo from "@/components/Logo";
+import SearchModal from "@/components/partials/SearchModal";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { IoSearch } from "react-icons/io5";
 import { useColorModeValues } from "@/lib/hooks/useColorModeValues";
 import { DarkModeSwitch } from "@/components/DarkModeSwitch/DarkModeSwitch";
 
-import {
-   Box
-} from "@chakra-ui/react";
-
-interface MenuItem {
-    name: string;
-    url: string;
-    hasChildren?: boolean;
-    children?: MenuItem[];
-}
+import { Box, Stack, Text } from "@chakra-ui/react";
+import { MenuItem, NavbarConfig } from "@/lib/types";
 
 const Header: React.FC = () => {
-    const { main } = menu;
-
     const [navFixed, setNavFixed] = useState(false);
     const [searchModal, setSearchModal] = useState(false);
 
-    const { secondaryTextColor, colorSchemeSolid, borderColor } = useColorModeValues();
+    const { secondaryTextColor, colorSchemeSolid, borderColor } =
+        useColorModeValues();
 
     const handleSearchModalOpen = () => {
         setSearchModal(true);
     };
 
+    const navConfig: NavbarConfig = {
+        brandName: "Bloggr",
+        logo: {
+            src: "",
+            redirectUrl: "/",
+        },
+        links: [
+            {
+                name: "Home",
+                url: "/",
+                hasChildren: true,
+                children: [
+                    {
+                        name: "Home",
+                        url: "/",
+                        hasChildren: true,
+                        children: [
+                            {
+                                name: "Home",
+                                url: "/",
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                name: "Pricing",
+                url: "/",
+            },
+        ],
+        ctaButtons: [
+            {
+                text: "Start FREE",
+                link: "/",
+            },
+        ],
+    };
+
     return (
-        <Box background={colorSchemeSolid} className={`sticky top-0 z-50 py-1 transition-all w-full border-b-2 border-[${borderColor}] ${
-            navFixed ? 'shadow' : ''
-        }`} >
-            <header
-            >
+        <Box
+            background={colorSchemeSolid}
+            className={`sticky top-0 z-50 w-full border-b-[1px] py-1 transition-all border-[${borderColor}] ${
+                navFixed ? "shadow" : ""
+            }`}
+        >
+            <header>
                 <nav className="navbar container">
                     <div className="order-0">
-                        <Logo/>
+                        <Stack direction="row" alignItems="center">
+                            <Logo
+                                src={navConfig?.logo?.src}
+                                redirectUrl={navConfig?.logo?.redirectUrl}
+                            />
+                            {navConfig?.brandName && (
+                                <Text fontWeight={700} fontSize="16px">
+                                    {navConfig?.brandName}
+                                </Text>
+                            )}
+                        </Stack>
                     </div>
                     <input id="nav-toggle" type="checkbox" className="hidden" />
                     <label
                         id="show-button"
                         htmlFor="nav-toggle"
-                        className="order-2 flex cursor-pointer items-center md:order-1 md:hidden ml-3"
+                        className="order-2 ml-3 flex cursor-pointer items-center md:order-1 md:hidden"
                     >
                         <svg className="h-6 fill-current" viewBox="0 0 20 20">
                             <title>Menu Open</title>
@@ -64,57 +104,83 @@ const Header: React.FC = () => {
                             />
                         </svg>
                     </label>
-                   
-                        <ul
-                            id="nav-menu"
-                            className="navbar-nav order-3 hidden w-full md:order-1 md:flex md:w-auto md:space-x-2"
-                        >
-                            {main.map((menu: MenuItem, i: number) => (
-                                <React.Fragment key={`menu-${i}`}>
-                                    {menu.hasChildren ? (
-                                        <li className="nav-item nav-dropdown group relative">
-                                            <span className="nav-link inline-flex items-center">
-                                                <Box
-                                                    color={secondaryTextColor}
-                                                >
-                                                    {menu.name}
-                                                </Box>
-                                                <svg
-                                                    className="h-4 w-4 fill-current"
-                                                    viewBox="0 0 20 20"
-                                                >
-                                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                                </svg>
-                                            </span>
-                                            <ul className="nav-dropdown-list hidden group-hover:block md:invisible md:absolute md:block md:opacity-0 md:group-hover:visible md:group-hover:opacity-100">
-                                                {menu.children?.map((child: MenuItem, j: number) => (
-                                                    <li className="nav-dropdown-item" key={`children-${j}`}>
-                                                        <Link href={child.url} className="nav-dropdown-link block">
+
+                    <ul
+                        id="nav-menu"
+                        className="navbar-nav order-3 hidden w-full md:order-1 md:flex md:w-auto md:space-x-2"
+                    >
+                        {navConfig?.links?.map((menu: MenuItem, i: number) => (
+                            <React.Fragment key={`menu-${i}`}>
+                                {menu.hasChildren ? (
+                                    <li className="nav-item nav-dropdown group relative">
+                                        <span className="nav-link inline-flex items-center text-[15px] font-normal">
+                                            <Box
+                                                color={secondaryTextColor}
+                                                sx={{ marginRight: "4px" }}
+                                                _hover={{
+                                                    color: "brand.400",
+                                                }}
+                                            >
+                                                {menu.name}
+                                            </Box>
+                                            <svg
+                                                className="h-3 w-3 fill-current"
+                                                viewBox="0 0 20 20"
+                                            >
+                                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                            </svg>
+                                        </span>
+                                        <ul className="nav-dropdown-list hidden group-hover:block md:invisible md:absolute md:block md:opacity-0 md:group-hover:visible md:group-hover:opacity-100">
+                                            {menu.children?.map(
+                                                (
+                                                    child: MenuItem,
+                                                    j: number,
+                                                ) => (
+                                                    <li
+                                                        className="nav-dropdown-item"
+                                                        key={`children-${j}`}
+                                                    >
+                                                        <Link
+                                                            href={child.url}
+                                                            className="nav-dropdown-link block text-[15px] font-normal"
+                                                        >
                                                             <Box
-                                                                color={secondaryTextColor}
+                                                                color={
+                                                                    secondaryTextColor
+                                                                }
+                                                                _hover={{
+                                                                    color: "brand.400",
+                                                                }}
                                                             >
                                                                 {child.name}
                                                             </Box>
                                                         </Link>
                                                     </li>
-                                                ))}
-                                            </ul>
-                                        </li>
-                                    ) : (
-                                        <li className="nav-item">
-                                            <Link href={menu.url} className="nav-link block text-[15px] font-normal">
-                                                <Box
-                                                    color={secondaryTextColor}
-                                                >
-                                                    {menu.name}
-                                                </Box>
-                                            </Link>
-                                        </li>
-                                    )}
-                                </React.Fragment>
-                            ))}
-                        </ul>
-                    <div className="order-1 ml-auto md:order-2 md:ml-0 flex items-center gap-2">
+                                                ),
+                                            )}
+                                        </ul>
+                                    </li>
+                                ) : (
+                                    <li className="nav-item">
+                                        <Link
+                                            href={menu.url}
+                                            className="nav-link block text-[15px] font-normal"
+                                        >
+                                            <Box
+                                                color={secondaryTextColor}
+                                                _hover={{
+                                                    color: "brand.400",
+                                                }}
+                                            >
+                                                {menu.name}
+                                            </Box>
+                                        </Link>
+                                    </li>
+                                )}
+                            </React.Fragment>
+                        ))}
+                    </ul>
+                    <div className="order-1 ml-auto flex items-center gap-2 md:order-2 md:ml-0">
                         {/* <div
                             className="cursor-pointer p-2 text-xl text-dark hover:text-indigo-600"
                             onClick={handleSearchModalOpen}
@@ -122,24 +188,25 @@ const Header: React.FC = () => {
                             <IoSearch />
                         </div> */}
                         <DarkModeSwitch />
-                        {/* <Link
-                            href="https://paperchat.io/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="bg-transparent rounded-lg py-1 px-4 text-indigo-600 border border-indigo-600 transition cursor-pointer hover:text-slate-200 hover:bg-indigo-600"
-                        >
-                            Login
-                        </Link> */}
-                        <Link
-                            href="https://paperchat.io/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="bg-indigo-600 rounded-lg py-1 px-4 text-slate-200 border border-indigo-600 transition cursor-pointer hover:text-indigo-600 hover:bg-transparent"
-                        >
-                            CTA Button
-                        </Link>
+                        {navConfig?.ctaButtons?.map((button) => (
+                            <Link
+                                href="https://paperchat.io/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`${
+                                    button.variant == "outline"
+                                        ? "bg-transparent text-indigo-600 hover:bg-indigo-600 hover:text-slate-200"
+                                        : "bg-indigo-600 text-slate-200 hover:bg-transparent hover:text-indigo-600"
+                                } cursor-pointer rounded-lg border  border-indigo-600 px-4 py-1 transition `}
+                            >
+                                {button.text}
+                            </Link>
+                        ))}
                     </div>
-                    <SearchModal searchModal={searchModal} setSearchModal={setSearchModal} />
+                    <SearchModal
+                        searchModal={searchModal}
+                        setSearchModal={setSearchModal}
+                    />
                 </nav>
             </header>
         </Box>
