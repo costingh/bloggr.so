@@ -9,7 +9,7 @@ import { DarkModeSwitch } from "@/components/DarkModeSwitch/DarkModeSwitch";
 import { Box, Stack, Text } from "@chakra-ui/react";
 import { MenuItem, NavbarConfig } from "@/lib/types";
 
-const Header: React.FC = () => {
+const Header: React.FC = ({logo}: {logo?: string | undefined}) => {
     const [navFixed, setNavFixed] = useState(false);
     const [searchModal, setSearchModal] = useState(false);
 
@@ -21,9 +21,9 @@ const Header: React.FC = () => {
     };
 
     const navConfig: NavbarConfig = {
-        brandName: "Bloggr",
+        // brandName: "Bloggr",
         logo: {
-            src: "",
+            src: logo || '',
             redirectUrl: "/",
         },
         links: [

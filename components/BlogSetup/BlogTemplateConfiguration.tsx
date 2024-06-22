@@ -24,8 +24,10 @@ import {
 	Box,
 } from "@chakra-ui/react";
 import Form from "@/components/form";
+import { updateSite } from "@/lib/actions";
 
 import SiteSettingsNav from "@/app/app/(dashboard)/site/[id]/settings/nav";
+import DeleteSiteForm from "@/components/form/delete-site-form";
 
 type Props = {
     blogData?: any;
@@ -69,7 +71,7 @@ function BlogTemplateConfiguration({blogData} : Props) {
                         placeholder: "My Awesome Site",
                         maxLength: 32,
                     }}
-                    handleSubmit={() =>{}}
+                    handleSubmit={updateSite}
                 />
 
                 <Form
@@ -79,24 +81,13 @@ function BlogTemplateConfiguration({blogData} : Props) {
                     inputAttrs={{
                         name: "description",
                         type: "text",
-                        defaultValue: blogData?.description!,
+                        defaultValue: blogData?.siteData?.description!,
                         placeholder: "A blog about really interesting things.",
                     }}
-                    handleSubmit={() =>{}}
+                    handleSubmit={updateSite}
                 />
 
-            {/* <DeleteSiteForm siteName={data?.name!} /> */}
-                {/* <Suspense
-                    fallback={
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                            {Array.from({ length: 4 }).map((_, i) => (
-                                <PlaceholderCard key={i} />
-                            ))}
-                        </div>
-                    }
-                >
-                    <Sites limit={4} />
-                </Suspense> */}
+                <DeleteSiteForm siteName={blogData?.siteData?.name!} />
             </div>
         </div>
     );

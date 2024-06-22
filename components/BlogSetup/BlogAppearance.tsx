@@ -24,6 +24,7 @@ import {
     Box,
 } from "@chakra-ui/react";
 import Form from "@/components/form";
+import { updateSite } from "@/lib/actions";
 
 import SiteSettingsNav from "@/app/app/(dashboard)/site/[id]/settings/nav";
 
@@ -69,7 +70,7 @@ function BlogAppearance({ blogData }: Props) {
                        type: "file",
                        defaultValue: blogData?.siteData?.image!,
                    }}
-                    handleSubmit={() => {}}
+                    handleSubmit={updateSite}
                 />
                 <Form
                      title="Logo"
@@ -80,7 +81,7 @@ function BlogAppearance({ blogData }: Props) {
                          type: "file",
                          defaultValue: blogData?.siteData?.logo!,
                      }}
-                    handleSubmit={() => {}}
+                    handleSubmit={updateSite}
                 />
                 <Form
                 title="Font"
@@ -91,7 +92,7 @@ function BlogAppearance({ blogData }: Props) {
                     type: "select",
                     defaultValue: blogData?.siteData?.font!,
                 }}
-                handleSubmit={() => {}}
+                handleSubmit={updateSite}
 
             />
             <Form
@@ -106,22 +107,9 @@ function BlogAppearance({ blogData }: Props) {
                         "Blimey! You've found a page that doesn't exist.",
                     maxLength: 240,
                 }}
-                handleSubmit={() => {}}
+                handleSubmit={updateSite}
 
             />
-
-                {/* <DeleteSiteForm siteName={data?.name!} /> */}
-                {/* <Suspense
-                    fallback={
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                            {Array.from({ length: 4 }).map((_, i) => (
-                                <PlaceholderCard key={i} />
-                            ))}
-                        </div>
-                    }
-                >
-                    <Sites limit={4} />
-                </Suspense> */}
             </div>
         </div>
     );

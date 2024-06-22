@@ -24,13 +24,13 @@ import { FooterConfig } from "@/lib/types";
 import Logo from "../Logo";
 import { brandName } from './../../config/config';
 
-export const Footer = () => {
+export const Footer = ({logo} : {logo?: string | undefined}) => {
     const { secondaryTextColor, borderColor } = useColorModeValues();
 
     const footerConfig: FooterConfig = {
         brandName: 'Bloggr',
         logo: {
-            src: "",
+            src: logo || '',
             redirectUrl: "/",
         },
         slogan: "Setup your blog in minutes",

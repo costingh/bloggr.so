@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 
 type Props = {
-    activeTab: 'settings' | 'domains' | 'appearance'
+    activeTab: 'settings' | 'domains' | 'appearance' | 'analytics'
 }
 
 export default function SiteSettingsNav({activeTab} : Props) {
@@ -26,6 +26,11 @@ export default function SiteSettingsNav({activeTab} : Props) {
             name: "Appearance",
             href: `/site/${id}/settings/appearance`,
             segment: "appearance",
+        },
+        {
+            name: "Analytics",
+            href: `/site/${id}/settings/analytics`,
+            segment: "analytics",
         },
     ];
 

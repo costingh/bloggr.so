@@ -14,6 +14,6 @@ export enum Routes {
   blogHome = "/site",
   blogSettings = "site/*/settings",
   blogDomains = "site/*/domains",
-  blogAppearance = "site/*/appearance"
-
+  blogAppearance = "site/*/appearance",
+  blogAnalytics = "site/*/analytics"
 }

@@ -88,12 +88,13 @@ export default async function SiteHomePage({
     return (
         <>
             <Base
-                title={title}
+                title={data?.name || 'Unknown'}
                 description={
-                    description ? description : content.slice(0, 120)
+                    data?.description || data?.name || ''
                 }
-                meta_title={meta_title}
-                image={image}
+                meta_title={data?.name || ''}
+                image={data?.image}
+                logo={data?.logo}
                 noindex={noindex}
                 canonical={canonical}
             >

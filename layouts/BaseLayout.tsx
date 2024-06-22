@@ -18,6 +18,7 @@ interface BaseLayoutProps {
     noindex?: boolean;
     canonical?: string;
     children: React.ReactNode;
+    logo?: string;
 }
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({
@@ -28,6 +29,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({
     noindex,
     canonical,
     children,
+    logo
 }) => {
     const { meta_image, meta_author, meta_description } = config.metadata;
     const { base_url } = config.site;
@@ -124,9 +126,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({
                 />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
-            <Header />
+            <Header logo={logo} />
             {children}
-            <Footer />
+            <Footer logo={logo} />
         </React.Fragment>
     );
 };

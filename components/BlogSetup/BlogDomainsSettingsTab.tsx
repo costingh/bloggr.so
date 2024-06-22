@@ -24,6 +24,7 @@ import {
     Box,
 } from "@chakra-ui/react";
 import Form from "@/components/form";
+import { updateSite } from "@/lib/actions";
 
 import SiteSettingsNav from "@/app/app/(dashboard)/site/[id]/settings/nav";
 
@@ -71,7 +72,7 @@ function BlogDomainsSettingsTab({ blogData }: Props) {
                         placeholder: "subdomain",
                         maxLength: 32,
                     }}
-                    handleSubmit={() => {}}
+                    handleSubmit={updateSite}
                 />
                 <Form
                     title="Custom Domain"
@@ -86,21 +87,8 @@ function BlogDomainsSettingsTab({ blogData }: Props) {
                         pattern:
                             "^[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}$",
                     }}
-                    handleSubmit={() => {}}
+                    handleSubmit={updateSite}
                 />
-
-                {/* <DeleteSiteForm siteName={data?.name!} /> */}
-                {/* <Suspense
-                    fallback={
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                            {Array.from({ length: 4 }).map((_, i) => (
-                                <PlaceholderCard key={i} />
-                            ))}
-                        </div>
-                    }
-                >
-                    <Sites limit={4} />
-                </Suspense> */}
             </div>
         </div>
     );
