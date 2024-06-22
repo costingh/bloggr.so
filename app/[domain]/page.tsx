@@ -13,6 +13,7 @@ import { NotionPost } from "@/types/notion.types";
 import HighlightedPost from "@/components/partials/HighlightedPost";
 import Base from "@/layouts/BaseLayout";
 import Pagination from "@/components/partials/Pagination";
+import {CallToActionBanner} from "@/components/BlogSetup/blog/Widgets/CallToActionBanner";
 
 export async function generateStaticParams() {
     const allSites = await prisma.site.findMany({
@@ -52,7 +53,7 @@ export default async function SiteHomePage({
         notFound();
     }
 
-    const postsPerPage = 2; // Number of posts per page
+    const postsPerPage = 10; // Number of posts per page
     const currentPage = searchParams?.page ? parseInt(searchParams.page as string, 10) : 1;
 
     const startIndex = (currentPage - 1) * postsPerPage;
@@ -76,12 +77,6 @@ export default async function SiteHomePage({
 
     const totalPages = Math.ceil(currentPosts.length / postsPerPage);
 
-    const title = "By blog";
-    const description = "My blog amazing description";
-    const content =
-        "asdas das dasd klasjdklaks jdlkasjkldj hqiwsjdkla skldaskd;laslkjdf klwqehkljf jsk ldflkjwjadiofg sdlkfgkljsd";
-    const meta_title = "My blog";
-    const image = "image";
     const noindex = true;
     const canonical = "true";
 
@@ -93,8 +88,8 @@ export default async function SiteHomePage({
                     data?.description || data?.name || ''
                 }
                 meta_title={data?.name || ''}
-                image={data?.image}
-                logo={data?.logo}
+                image={data?.image || ''}
+                logo={data?.logo || ''}
                 noindex={noindex}
                 canonical={canonical}
             >
@@ -117,6 +112,7 @@ export default async function SiteHomePage({
                             basePath={`/${params.domain}`} // Base path for pagination links
                         />
                     </div>
+                    <CallToActionBanner/>
                 </section>
             </Base>
         </>
