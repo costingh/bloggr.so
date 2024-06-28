@@ -14,6 +14,7 @@ import HighlightedPost from "@/components/partials/HighlightedPost";
 import Base from "@/layouts/BaseLayout";
 import Pagination from "@/components/partials/Pagination";
 import {CallToActionBanner} from "@/components/BlogSetup/blog/Widgets/CallToActionBanner";
+import CategoryTabs from "@/components/BlogSetup/blog/Widgets/CategoryTabs";
 
 export async function generateStaticParams() {
     const allSites = await prisma.site.findMany({
@@ -42,7 +43,7 @@ export default async function SiteHomePage({
     searchParams,
 }: {
     params: { domain: string };
-    searchParams: {page?: string}
+    searchParams: {page?: string, category?: string}
 }) {
 
     console.log(searchParams)
@@ -55,12 +56,13 @@ export default async function SiteHomePage({
 
     const postsPerPage = 10; // Number of posts per page
     const currentPage = searchParams?.page ? parseInt(searchParams.page as string, 10) : 1;
+    const category = searchParams?.category;
 
     const startIndex = (currentPage - 1) * postsPerPage;
     const endIndex = currentPage * postsPerPage;
 
     const posts =
-        (await getPostsForSite(domain, data?.postsDatabaseId || "")) || [];
+        (await getPostsForSite(domain, data?.postsDatabaseId || "", category)) || [];
 
     const authors = [
         {
@@ -74,7 +76,6 @@ export default async function SiteHomePage({
 
     // Paginate posts
     const paginatedPosts = currentPosts.slice(startIndex, endIndex);
-
     const totalPages = Math.ceil(currentPosts.length / postsPerPage);
 
     const noindex = true;
@@ -95,12 +96,16 @@ export default async function SiteHomePage({
             >
                 <section className="section">
                     <div className="container">
-                        {featuredPost && (
+                        {featuredPost?.title && (
                             <HighlightedPost
                                 post={featuredPost}
                                 authors={authors}
                             />
                         )}
+                        <CategoryTabs
+                            basePath={`/${params.domain}`}
+                            activeCategory={category}
+                        />
                         <Posts
                             className="mb-16"
                             posts={paginatedPosts}
