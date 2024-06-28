@@ -7,6 +7,7 @@ import {
     Heading,
     Button,
     Stack,
+    Input,
     useColorModeValue,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -17,28 +18,67 @@ import { brandName, demoCalendlyLink } from "@/config/config";
 import { Section } from "@/components/atoms/Section/Section";
 import { useColorModeValues } from "@/lib/hooks/useColorModeValues";
 
+type FeaturesType = {
+    text?: string;
+    list?: string[];
+};
+
+type CallToActionContentType = {
+    heading: string;
+    description: string;
+    button: {
+        type: "subscribe" | "link";
+        action: string;
+        text: string;
+    };
+    features: FeaturesType;
+};
+
 export const CallToActionBanner = () => {
     const router = useRouter();
     const { user } = useIsLogged();
 
+    const [email, setEmail] = useState("");
+
     const ctaColor = useColorModeValue("white", "brand.100");
     const ctaBgColor = useColorModeValue("brand.500", "brand.700");
-    const bannerBackground = useColorModeValue("blackAlpha.50", "whiteAlpha.100");
+    const bannerBackground = useColorModeValue(
+        "blackAlpha.50",
+        "whiteAlpha.100",
+    );
 
-    const { primaryTextColor, secondaryTextColor } = useColorModeValues();
+    const { primaryTextColor, secondaryTextColor, borderColor, baseTextColor } =
+        useColorModeValues();
 
     const [isLoadingCta, setLoadingCta] = useState(false);
-    const onGetStartedClick = () => {
+    const handleCtaButtonCLick = (type: string) => {
         setLoadingCta(true);
-        if (user) {
-            router.push(Routes.dashboard);
-            return;
+        if(type === 'link') {
+            router.push(CallToActionContent?.button?.action)
+        } else {
+            console.log(email + ' has just subscribed!')
         }
-        router.push(Routes.signUp);
+    };
+
+    const CallToActionContent: CallToActionContentType = {
+        heading: "Start making money today.",
+        description:
+            "Get started with Bloggr today. Start making money with your audience.",
+        button: {
+            text: "Try FREE now",
+            action: "",
+            type: "link",
+        },
+        features: {
+            text: "No spam. Unsubscribe at any time.",
+
+            // type: 'list',
+            // list: ['Personalized onboarding', 'Friendly pricing as you scale']
+        },
     };
 
     return (
-        <Section flexDir="column" mt="80px"  >
+        <Section flexDir="column" mt="80px">
             <Flex
                 p="80px 24px"
                 flexDir="column"
@@ -56,37 +96,56 @@ export const CallToActionBanner = () => {
                     fontWeight="extrabold"
                     color={primaryTextColor}
                 >
-                    Start making money today.
+                    {CallToActionContent?.heading || "-"}
                 </Heading>
                 <Text
                     fontSize="14px"
                     my="8px"
-                    color="blackAlpha.800"
                     maxW="600px"
                     fontWeight={500}
                     color={secondaryTextColor}
                 >
-                    Get started with {brandName} today.
-                    Start making money with your audience.
+                    {CallToActionContent?.description || ""}
                 </Text>
 
                 <Stack
                     direction={["column", "column", "column", "row"]}
-                    mt="15px" mb="15px"
+                    mt="15px"
+                    mb="15px"
                 >
                     <Flex maxW="524px" flexDir="row">
+                        {CallToActionContent?.button?.type !== "link" && (
+                            <Input
+                                size="md"
+                                mr={4}
+                                px="15px"
+                                py="15px"
+                                borderRadius="13px"
+                                borderColor={borderColor}
+                                onChange={(e) => setEmail(e.target.value)}
+                                _focusWithin={{
+                                    boxShadow: "none",
+                                    borderColor: "brand.200",
+                                }}
+                                _placeholder={{
+                                    color: baseTextColor[500],
+                                }}
+                                placeholder="john@doe.com"
+                            />
+                        )}
                         <Button
                             size="md"
                             variant="solid"
                             colorScheme="brand"
                             color={ctaColor}
                             bgColor={ctaBgColor}
-                            h="50px"
-                            minH="50px"
-                            w="220px"
-                            px="24px"
-                            borderRadius="16px"
-                            onClick={() => onGetStartedClick()}
+                            // h="50px"
+                            // minH="50px"
+                            // w="220px"
+                            px="40px"
+                            py="15px"
+                            borderRadius="13px"
+                            onClick={() => handleCtaButtonCLick(CallToActionContent?.button?.type)}
                             isLoading={isLoadingCta}
                             rightIcon={<TbArrowRight />}
                             sx={{
@@ -101,23 +160,23 @@ export const CallToActionBanner = () => {
                                 },
                             }}
                         >
-                            Try FREE now
+                            {CallToActionContent?.button?.text || "-"}
                         </Button>
                     </Flex>
                 </Stack>
 
-                {getCtaFeatures("single")}
+                {getCtaFeatures(CallToActionContent)}
             </Flex>
         </Section>
     );
 };
 
-const getCtaFeatures = (layout: "list" | "single") => {
+const getCtaFeatures = (CallToActionContent: CallToActionContentType) => {
     const { primaryTextColor, secondaryTextColor } = useColorModeValues();
 
     return (
         <>
-            {layout == "list" ? (
+            {CallToActionContent?.features?.list ? (
                 <Stack
                     direction={["column", "column", "row"]}
                     alignItems="center"
@@ -125,32 +184,24 @@ const getCtaFeatures = (layout: "list" | "single") => {
                     color="brand.300"
                     spacing={["16px", "16px", "32px"]}
                 >
-                    <Stack direction="row" alignItems="center">
-                        <Flex minW="16px" color="brand.500">
-                            <TbCircleCheck size="16px" />
-                        </Flex>
-                        <Text color={secondaryTextColor}>
-                            Personalized onboarding
-                        </Text>
-                    </Stack>
-                    <Stack
-                        direction="row"
-                        alignItems="center"
-                        color="brand.500"
-                    >
-                        <TbCircleCheck size="16px" />
-                        <Text color={secondaryTextColor}>
-                            Friendly pricing as you scale
-                        </Text>
-                    </Stack>
+                    {CallToActionContent?.features?.list.map((item) => (
+                        <Stack direction="row" alignItems="center">
+                            <Flex minW="16px" color="brand.500">
+                                <TbCircleCheck size="16px" />
+                            </Flex>
+                            <Text color={secondaryTextColor}>{item}</Text>
+                        </Stack>
+                    ))}
                 </Stack>
             ) : (
-                <Text fontSize="14px"
-                my="8px"
-                color={secondaryTextColor}
-                maxW="600px"
-                fontWeight={500}>
-                    No spam. Unsubscribe at any time.
+                <Text
+                    fontSize="14px"
+                    my="8px"
+                    color={secondaryTextColor}
+                    maxW="600px"
+                    fontWeight={500}
+                >
+                    {CallToActionContent?.features?.text}
                 </Text>
             )}
         </>
