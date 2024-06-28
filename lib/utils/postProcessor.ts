@@ -29,6 +29,14 @@ const extractPostContent = (post: NotionPost, mapping: any): string => {
     );
 };
 
+const extractPostCategory = (post: NotionPost, mapping: any): string[] => {
+    if (!post || !mapping) return [];
+    return (
+        (post?.properties?.[mapping?.category || "Category"]?.rich_text?.[0]
+            ?.plain_text || "")?.split(',')
+    );
+};
+
 const extractPostImage = (post: NotionPost, mapping: any): Image | null => {
     if (!post || !mapping) return null;
     const file = post?.properties?.[mapping?.image || "Image"]?.files?.[0];
@@ -45,7 +53,7 @@ const processPost = (p: NotionPost, mapping: any): Post => {
     return {
         image: extractPostImage(p, mapping),
         date: extractPostPublishDate(p, mapping),
-        categories: ["music", "art"],
+        categories: extractPostCategory(p, mapping),
         title: extractPostTitle(p, mapping),
         authors: ["Costin Gheorghe"],
         slug: extractPostSlug(p, mapping),
@@ -68,11 +76,11 @@ const processPosts = (_posts: NotionPost[], mapping: any): Post[] => {
             return {
                 image: extractPostImage(p, mapping),
                 date: extractPostPublishDate(p, mapping),
-                categories: ["music", "art"],
                 title: extractPostTitle(p, mapping),
                 authors: ["Costin Gheorghe"],
                 slug: extractPostSlug(p, mapping),
                 content: extractPostContent(p, mapping),
+                categories: extractPostCategory(p, mapping)
             };
         });
     return processedPosts;

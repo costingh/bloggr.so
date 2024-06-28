@@ -62,6 +62,10 @@ const fieldMappings = [
         name: "Featured",
         description: "Indicates if the post is featured on the first page",
     },
+    {
+        name: "Category",
+        description: "Name of the topic/category the post is part of",
+    },
 ];
 
 const initialState = {};
@@ -155,86 +159,86 @@ export default function CreateSiteModal() {
                 setIsConnecting(false);
             });
 
-        setDatabaseConnected(true);
-        setStep(2);
-        setDatabaseInfo({
-            object: "database",
-            id: "c668b7ee-d8e6-4b06-a0ca-efa1bbc22101",
-            cover: null,
-            icon: null,
-            created_time: "2024-03-31T17:37:00.000Z",
-            created_by: {
-                object: "user",
-                id: "e8286ec6-332d-4f64-a39f-ed9092ec84e3",
-            },
-            last_edited_by: {
-                object: "user",
-                id: "e8286ec6-332d-4f64-a39f-ed9092ec84e3",
-            },
-            last_edited_time: "2024-04-10T18:36:00.000Z",
-            title: [
-                {
-                    type: "text",
-                    text: {
-                        content: "Content",
-                        link: null,
-                    },
-                    annotations: {
-                        bold: false,
-                        italic: false,
-                        strikethrough: false,
-                        underline: false,
-                        code: false,
-                        color: "default",
-                    },
-                    plain_text: "Content",
-                    href: null,
-                },
-            ],
-            description: [],
-            is_inline: false,
-            properties: {
-                Featured: {
-                    id: "GRLB",
-                    name: "Featured",
-                    type: "checkbox",
-                    checkbox: {},
-                },
-                "Publish Date": {
-                    id: "JS%5E%3D",
-                    name: "Publish Date",
-                    type: "date",
-                    date: {},
-                },
-                Slug: {
-                    id: "ZsSw",
-                    name: "Slug",
-                    type: "rich_text",
-                    rich_text: {},
-                },
-                Draft: {
-                    id: "%60_%3Co",
-                    name: "Draft",
-                    type: "checkbox",
-                    checkbox: {},
-                },
-                Name: {
-                    id: "title",
-                    name: "Name",
-                    type: "title",
-                    title: {},
-                },
-            },
-            parent: {
-                type: "workspace",
-                workspace: true,
-            },
-            url: "https://www.notion.so/c668b7eed8e64b06a0caefa1bbc22101",
-            public_url: null,
-            archived: false,
-            in_trash: false,
-            request_id: "9490728c-440c-4892-bbf4-788348b7a147",
-        });
+        // setDatabaseConnected(true);
+        // setStep(2);
+        // setDatabaseInfo({
+        //     object: "database",
+        //     id: "c668b7ee-d8e6-4b06-a0ca-efa1bbc22101",
+        //     cover: null,
+        //     icon: null,
+        //     created_time: "2024-03-31T17:37:00.000Z",
+        //     created_by: {
+        //         object: "user",
+        //         id: "e8286ec6-332d-4f64-a39f-ed9092ec84e3",
+        //     },
+        //     last_edited_by: {
+        //         object: "user",
+        //         id: "e8286ec6-332d-4f64-a39f-ed9092ec84e3",
+        //     },
+        //     last_edited_time: "2024-04-10T18:36:00.000Z",
+        //     title: [
+        //         {
+        //             type: "text",
+        //             text: {
+        //                 content: "Content",
+        //                 link: null,
+        //             },
+        //             annotations: {
+        //                 bold: false,
+        //                 italic: false,
+        //                 strikethrough: false,
+        //                 underline: false,
+        //                 code: false,
+        //                 color: "default",
+        //             },
+        //             plain_text: "Content",
+        //             href: null,
+        //         },
+        //     ],
+        //     description: [],
+        //     is_inline: false,
+        //     properties: {
+        //         Featured: {
+        //             id: "GRLB",
+        //             name: "Featured",
+        //             type: "checkbox",
+        //             checkbox: {},
+        //         },
+        //         "Publish Date": {
+        //             id: "JS%5E%3D",
+        //             name: "Publish Date",
+        //             type: "date",
+        //             date: {},
+        //         },
+        //         Slug: {
+        //             id: "ZsSw",
+        //             name: "Slug",
+        //             type: "rich_text",
+        //             rich_text: {},
+        //         },
+        //         Draft: {
+        //             id: "%60_%3Co",
+        //             name: "Draft",
+        //             type: "checkbox",
+        //             checkbox: {},
+        //         },
+        //         Name: {
+        //             id: "title",
+        //             name: "Name",
+        //             type: "title",
+        //             title: {},
+        //         },
+        //     },
+        //     parent: {
+        //         type: "workspace",
+        //         workspace: true,
+        //     },
+        //     url: "https://www.notion.so/c668b7eed8e64b06a0caefa1bbc22101",
+        //     public_url: null,
+        //     archived: false,
+        //     in_trash: false,
+        //     request_id: "9490728c-440c-4892-bbf4-788348b7a147",
+        // });
         setIsConnecting(false);
     };
 
@@ -306,6 +310,8 @@ export default function CreateSiteModal() {
                 ];
             case "Slug":
                 return ["Slug", "URL Slug", "Post Slug"];
+            case "Category":
+                return ["Category", "category", "Categories", "categories", "Topics", "topics"];
             case "Draft":
                 return ["Draft", "Is Draft", "Draft Status"];
             case "Featured":

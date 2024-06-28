@@ -28,3 +28,8 @@ export type NotionPost = {
     url: string;
     public_url: any; 
 }
+
+export type NotionQuery = {
+    database_id : string;
+    filter?: any;
+}

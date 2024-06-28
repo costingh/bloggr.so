@@ -97,6 +97,7 @@ model Mapping {
   publishedDate String
   slug          String
   title         String
+  category      String
   Site          Site[]
 }
 
@@ -119,7 +120,8 @@ model Site {
   posts           Post[]
   mappingId       String
   postsDatabaseId String
-
+ siteConfig      SiteConfig?
+ 
   @@index([userId])
 }
 
@@ -131,4 +133,14 @@ model Example {
   url           String?
   image         String? @db.Text
   imageBlurhash String? @db.Text
+}
+
+model SiteConfig {
+  id            String @id @default(cuid())
+  siteId        String @unique
+  bannerConfig  String @db.Text
+  footerConfig  String @db.Text
+  navbarConfig  String @db.Text
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
 }

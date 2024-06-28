@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 import { serialize } from "next-mdx-remote/serialize";
 import { replaceExamples, replaceTweets } from "@/lib/remark-plugins";
 import { Client, APIErrorCode } from "@notionhq/client";
-import { NotionPost } from "@/types/notion.types";
+import { NotionPost, NotionQuery } from "@/types/notion.types";
 
 export async function getSiteData(domain: string) {
     const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
@@ -36,14 +36,28 @@ const extractIdFromUrl = (url: string): string => {
 };
 
 
-export async function getPostsForSite(domain: string, databaseId: string) {
+export async function getPostsForSite(domain: string, databaseId: string, category?: string) {
     const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
     return await unstable_cache(
         async () => {
-            const resp = await notion.databases.query({
+
+            let QUERY: NotionQuery = {
                 database_id: extractIdFromUrl(databaseId || ""),
-            });
+            };
+
+            if(category) {
+                QUERY.filter = {
+                    property: "Category",
+                    rich_text: {
+                      contains: category,
+                    },
+                }
+            }
+
+            console.log(QUERY)
+
+            const resp = await notion.databases.query(QUERY);
     
             return resp?.results || [];
         },

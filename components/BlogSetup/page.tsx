@@ -37,6 +37,7 @@ type MappingType = {
 	publishedDate: string;
 	slug: string;
 	title: string;
+	category?: string;
 } | null;
 
 export type FormDataType = {
@@ -77,6 +78,10 @@ const fieldMappings = [
 		name: "Featured",
 		description: "Indicates if the post is featured on the first page",
 	},
+	{
+        name: "Category",
+        description: "Name of the topic/category the post is part of",
+    },
 ];
 
 const initialState = {};
@@ -233,6 +238,8 @@ export const BlogSetup = () => {
 				];
 			case "Slug":
 				return ["Slug", "URL Slug", "Post Slug"];
+			case "Category":
+				return ["Category", "category", "Categories", "categories", "Topics", "topics"];
 			case "Draft":
 				return ["Draft", "Is Draft", "Draft Status"];
 			case "Featured":
@@ -274,6 +281,7 @@ export const BlogSetup = () => {
 			publishedDate: (mapping as any)["Published Date"],
 			slug: (mapping as any)["Slug"],
 			title: (mapping as any)["Title"],
+			category: (mapping as any)["Category"],
 		  };
 	  
 		  //@ts-ignore
@@ -294,8 +302,8 @@ export const BlogSetup = () => {
 				router.push(`/site/${id}`);
 				toast.success(`Successfully created site!`);
 			}
+			setPending(false);
 		});
-		setPending(false);
 	};
 
 	return (
