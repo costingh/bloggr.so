@@ -101,7 +101,7 @@ export const CallToActionBanner = ({brandColor} : {brandColor?: string}) => {
                     {CallToActionContent?.heading || "-"}
                 </Heading>
                 <Text
-                    fontSize="14px"
+                    fontSize="16px"
                     my="8px"
                     maxW="600px"
                     fontWeight={500}

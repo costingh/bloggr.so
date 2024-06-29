@@ -25,7 +25,7 @@ import Logo from "../Logo";
 import { brandName } from './../../config/config';
 
 export const Footer = ({logo} : {logo?: string | undefined}) => {
-    const { secondaryTextColor, borderColor } = useColorModeValues();
+    const { secondaryTextColor, borderColor, primaryTextColor } = useColorModeValues();
 
     const footerConfig: FooterConfig = {
         brandName: 'Bloggr',
@@ -120,12 +120,12 @@ export const Footer = ({logo} : {logo?: string | undefined}) => {
                                     }
                                 />
                             </Flex>
-                            {footerConfig?.brandName && <Text fontWeight={700} fontSize="16px">
+                            {footerConfig?.brandName && <Text fontWeight={700} fontSize="18px" color={primaryTextColor}>
                                 {footerConfig?.brandName}
                             </Text>}
                         </Stack>
                         {footerConfig?.slogan && (
-                            <Text fontWeight={500} fontSize="14px">
+                            <Text fontWeight={500} fontSize="15px">
                                 {footerConfig?.slogan}
                             </Text>
                         )}
@@ -146,11 +146,12 @@ export const Footer = ({logo} : {logo?: string | undefined}) => {
                                 <Text
                                     fontWeight="bold"
                                     textTransform="uppercase"
+                                    fontSize="15px"
                                 >
                                     {col.columnTitle}
                                 </Text>
                                 {col.links?.map((link) => (
-                                    <Link href={link.url} mr="8px">
+                                    <Link href={link.url} mr="8px" fontSize="15px">
                                         {link.name}
                                     </Link>
                                 ))}
@@ -189,7 +190,7 @@ export const Footer = ({logo} : {logo?: string | undefined}) => {
                     </Stack>
                 </Flex>
 
-                <Text fontSize="12px" color={secondaryTextColor} mb="40px">
+                <Text fontSize="14px" color={secondaryTextColor} mb="40px">
                     <br /> {footerConfig?.copyright}
                 </Text>
             </Flex>
