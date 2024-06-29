@@ -72,10 +72,10 @@ export default async function SiteHomePage({
         },
     ];
 
-    let featuredPost = getFeaturedPost(posts as NotionPost[], data?.mapping);
     
     const currentPosts = processPosts(posts as NotionPost[], data?.mapping);
-    if(!featuredPost) featuredPost = currentPosts[currentPosts?.length]
+
+    let featuredPost = getFeaturedPost(posts as NotionPost[], data?.mapping) || currentPosts[currentPosts?.length-1];
 
     // Paginate posts
     const paginatedPosts = currentPosts.slice(startIndex, endIndex);

@@ -96,7 +96,8 @@ const isFeatured = (post: NotionPost, mapping: any): boolean => {
 const getFeaturedPost = (posts: NotionPost[], mapping: any) => {
     const p =
         (posts as NotionPost[]).filter((p) => isFeatured(p, mapping))?.[0] || null;
-    return {
+
+    return p ? {
         image: extractPostImage(p, mapping),
         date: extractPostPublishDate(p, mapping),
         categories: extractPostCategory(p, mapping),
@@ -104,7 +105,7 @@ const getFeaturedPost = (posts: NotionPost[], mapping: any) => {
         authors: ["Costin Gheorghe"],
         slug: extractPostSlug(p, mapping),
         content: extractPostContent(p, mapping),
-    };
+    } : null;
 }
 
 export {
