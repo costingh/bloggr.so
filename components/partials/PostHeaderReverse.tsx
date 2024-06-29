@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { CgRead } from "react-icons/cg";
 import readingTime from "reading-time";
+import { PostBreadcrumb } from "../BlogSetup/blog/Widgets/PostBreadcrumb";
 
 type HighlightedPostType = {
     post: Post;
@@ -38,6 +39,9 @@ function PostHeaderReverse({ post, authors }: HighlightedPostType) {
             <div className="mb-20 grid place-items-center lg:grid-cols-2">
                 <div className="mb-5 pl-0 lg:mb-0">
                     {/* <span className="font-[500]">Resources</span> */}
+                    {post?.categories?.[0] && <div className="mb-4">
+                        <PostBreadcrumb category={post?.categories?.[0]} />
+                    </div>}
 
                     <Text
                         className="hover:text-underline block text-[25px] font-[800] leading-[1.25em] lg:text-[40px]"
