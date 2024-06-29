@@ -84,7 +84,7 @@ export default async function SiteHomePage({
     const noindex = true;
     const canonical = "true";
 
-    const brandColor = '#0000FF';
+    const brandColor = 'rgb(0,0,255)';
 
     // TODO: fetch from notion
 

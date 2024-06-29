@@ -1,15 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
-import {
-    Text,
-    Flex,
-    Heading,
-    Button as ChakraButton,
-    Stack,
-    Input,
-    useColorModeValue,
-} from "@chakra-ui/react";
-import { TbArrowRight, TbCalendarDue, TbCircleCheck } from "react-icons/tb";
+import React, { useState } from "react";
+import { Box } from "@chakra-ui/react";
 
 type ButtonProps = {
     text: string;
@@ -18,17 +11,43 @@ type ButtonProps = {
     brandColor?: string;
 };
 
-const renderButton = ({ brandColor, text, variant }: { brandColor?: string; text: string; variant?: string }): JSX.Element => {
+const renderButton = ({
+    brandColor,
+    text,
+    variant,
+}: {
+    brandColor?: string;
+    text: string;
+    variant?: string;
+}): JSX.Element => {
+    const [hover, setHover] = useState(false);
+    const buttonStyles = {
+        borderColor: brandColor,
+        color: variant === "outline" ? brandColor : "#fff",
+        backgroundColor: variant === "outline" ? "transparent" : brandColor,
+        cursor: "pointer",
+        borderRadius: "9999px",
+        borderWidth: "1px",
+        padding: "7px 32px",
+        fontSize: "18px",
+        fontWeight: 400,
+        transition: "all 0.2s",
+    };
+
+    const hoverStyles = {
+        backgroundColor: variant === "outline" ? brandColor : "transparent",
+        color: variant === "outline" ? "slategray" : brandColor,
+    };
     return (
-        <ChakraButton
-            colorScheme={brandColor}
-            className={`${
-                variant === "outline"
-                    ? `bg-transparent text-[${brandColor}] hover:bg-[${brandColor}] hover:text-slate-200`
-                    : `bg-[${brandColor}] text-slate-200 hover:bg-transparent hover:text-[${brandColor}]`
-            } cursor-pointer !rounded-full border border-[${brandColor}] px-8 py-[7px] text-[18px] font-[400] transition`}
-            rightIcon={<TbArrowRight />}
-			  // onClick={() =>
+        <Box
+            style={
+                hover
+                    ? { ...buttonStyles, ...hoverStyles }
+                    : { ...buttonStyles }
+            }
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+            // onClick={() =>
             //     handleCtaButtonCLick(CallToActionContent?.button?.type)
             // }
             // isLoading={isLoadingCta}
@@ -45,7 +64,7 @@ const renderButton = ({ brandColor, text, variant }: { brandColor?: string; text
             }}
         >
             {text}
-        </ChakraButton>
+        </Box>
     );
 };
 

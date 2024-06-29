@@ -26,11 +26,6 @@ type HighlightedPostType = {
 function PostHeaderReverse({ post, authors }: HighlightedPostType) {
     const { primaryTextColor, baseTextColor, borderColor, secondaryTextColor } =
         useColorModeValues();
-    const boxBgColor = useColorModeValue("white", "transparent");
-    const ctaColor = useColorModeValue("white", "brand.100");
-    const ctaBgColor = useColorModeValue("brand.500", "brand.700");
-    const secondaryCtaColor = useColorModeValue("brand.700", "brand.700");
-    const secondaryCtaHoverColor = useColorModeValue("brand.900", "brand.900");
 
     const { summary_length } = config.settings;
 
@@ -38,7 +33,6 @@ function PostHeaderReverse({ post, authors }: HighlightedPostType) {
         <div className="container">
             <div className="mb-20 grid place-items-center lg:grid-cols-2">
                 <div className="mb-5 pl-0 lg:mb-0">
-                    {/* <span className="font-[500]">Resources</span> */}
                     {post?.categories?.[0] && <div className="mb-4">
                         <PostBreadcrumb category={post?.categories?.[0]} />
                     </div>}

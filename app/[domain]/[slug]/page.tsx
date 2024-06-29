@@ -302,7 +302,7 @@ export default async function SitePostPage({
     };
     
     // TODO
-    const brandColor = '#0000FF';
+    const brandColor = 'rgb(0,0,255)';
 
     return (
         <Base
