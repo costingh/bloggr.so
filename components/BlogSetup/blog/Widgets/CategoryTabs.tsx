@@ -12,7 +12,25 @@ type CategoryTabsProps = {
 
 function CategoryTabs({basePath, activeCategory} : CategoryTabsProps) {
     const [activeTab, setActiveTab] = useState('');
-    const tabs = ["All Categories", "General", "Guide", "Payout"];
+    const tabs = [
+        {
+            name: "All Categories",
+            filter: ''
+        },
+        {
+            name: "General",
+            filter: 'General'
+        },
+        {
+            name: "Guide",
+            filter: 'Guide'
+        },
+        {
+            name: "Payout",
+            filter: 'Payout'
+        },
+    ];
+
     const { secondaryTextColor, borderColor, primaryTextColor, baseTextColor } = useColorModeValues();
 
     const router = useRouter()
@@ -25,18 +43,19 @@ function CategoryTabs({basePath, activeCategory} : CategoryTabsProps) {
         router.push(`?category=${category}`)
     };
 
+   
     return (
          <div className="flex space-x-4 mb-[50px]">
-            {tabs.map((tab) => (
-                <Box
-                    key={tab}
-                    borderColor={baseTextColor[400]}
-                    className={`cursor-pointer rounded-full px-[12px] py-[5px] transition hover:bg-gray-300 border-[1px]`}
-                    background={activeCategory?.toLocaleLowerCase() == tab?.toLocaleLowerCase() ? baseTextColor[400] : ''}
-                    onClick={() => setActiveTab(tab == 'All Categories' ? '' : tab)}
+            {tabs.map((tab, index) => (
+                <Flex
+                    key={tab.name}
+                    className={`cursor-pointer `}
+                    background={activeCategory?.toLocaleLowerCase() == tab?.filter?.toLocaleLowerCase() ? baseTextColor[400] : ''}
+                    onClick={() => setActiveTab(tab.filter)}
                 >
-                    <Text fontSize="15px" color={primaryTextColor}>{tab}</Text>
-                </Box>
+                    <Text fontSize="16px" className={`${activeTab == tab.filter && 'font-[600]'}`} color={activeTab == tab.filter ? primaryTextColor : secondaryTextColor}>{tab.name}</Text>
+                    {index != tabs.length - 1 && <Box className="slash ml-[15px]" bgColor={baseTextColor[400]} style={{width: '1px', height: '20px', transform: 'rotate(15deg)'}}></Box>}
+                </Flex>
             ))}
         </div>
     );
