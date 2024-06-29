@@ -13,7 +13,7 @@ input#nav-toggle:checked~#nav-menu {
 
 // navbar items
 .navbar {
-    @apply relative flex flex-wrap items-center justify-between;
+    @apply relative flex flex-wrap items-center justify-between py-2;
 }
 
 .navbar-brand image {

@@ -5,9 +5,11 @@ import Link from "next/link";
 interface LogoProps {
     src?: string;
     redirectUrl?: string;
+    width?: number;
+    height?: number;
 }
 
-const Logo: React.FC<LogoProps> = ({ src, redirectUrl }) => {
+const Logo: React.FC<LogoProps> = ({ src, redirectUrl, width, height }) => {
     // Destructuring items from config object
     const { logo, logo_width, logo_height, logo_text, title } = config.site;
 
@@ -16,8 +18,8 @@ const Logo: React.FC<LogoProps> = ({ src, redirectUrl }) => {
             {/* <a className="navbar-brand block"> */}
                 {src || logo ? (
                     <Image
-                        width={parseInt(logo_width.replace("px", "")) / 7}
-                        height={parseInt(logo_height.replace("px", "")) / 7}
+                        width={width || parseInt(logo_width.replace("px", "")) / 7}
+                        height={height || parseInt(logo_height.replace("px", "")) / 7}
                         src={src ? src : logo}
                         alt={title}
                         priority

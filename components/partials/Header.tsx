@@ -13,7 +13,7 @@ const Header: React.FC = ({logo}: {logo?: string | undefined}) => {
     const [navFixed, setNavFixed] = useState(false);
     const [searchModal, setSearchModal] = useState(false);
 
-    const { secondaryTextColor, colorSchemeSolid, borderColor } =
+    const { secondaryTextColor, colorSchemeSolid, borderColor, primaryTextColor } =
         useColorModeValues();
 
     const handleSearchModalOpen = () => {
@@ -74,7 +74,7 @@ const Header: React.FC = ({logo}: {logo?: string | undefined}) => {
                                 redirectUrl={navConfig?.logo?.redirectUrl}
                             />
                             {navConfig?.brandName && (
-                                <Text fontWeight={700} fontSize="16px">
+                                <Text className='text-[16px] font-[700]' color={primaryTextColor}>
                                     {navConfig?.brandName}
                                 </Text>
                             )}
@@ -113,9 +113,9 @@ const Header: React.FC = ({logo}: {logo?: string | undefined}) => {
                             <React.Fragment key={`menu-${i}`}>
                                 {menu.hasChildren ? (
                                     <li className="nav-item nav-dropdown group relative">
-                                        <span className="nav-link inline-flex items-center text-[15px] font-normal">
+                                        <span className="nav-link inline-flex items-center text-[17px] font-[500] cursor-pointer">
                                             <Box
-                                                color={secondaryTextColor}
+                                                color={primaryTextColor}
                                                 sx={{ marginRight: "4px" }}
                                                 _hover={{
                                                     color: "brand.400",
@@ -142,11 +142,11 @@ const Header: React.FC = ({logo}: {logo?: string | undefined}) => {
                                                     >
                                                         <Link
                                                             href={child.url}
-                                                            className="nav-dropdown-link block text-[15px] font-normal"
+                                                            className="nav-dropdown-link block text-[17px] font-[500]"
                                                         >
                                                             <Box
                                                                 color={
-                                                                    secondaryTextColor
+                                                                    primaryTextColor
                                                                 }
                                                                 _hover={{
                                                                     color: "brand.400",
@@ -164,10 +164,10 @@ const Header: React.FC = ({logo}: {logo?: string | undefined}) => {
                                     <li className="nav-item">
                                         <Link
                                             href={menu.url}
-                                            className="nav-link block text-[15px] font-normal"
+                                            className="nav-link block text-[17px] font-[500]"
                                         >
                                             <Box
-                                                color={secondaryTextColor}
+                                                color={primaryTextColor}
                                                 _hover={{
                                                     color: "brand.400",
                                                 }}
@@ -182,7 +182,7 @@ const Header: React.FC = ({logo}: {logo?: string | undefined}) => {
                     </ul>
                     <div className="order-1 ml-auto flex items-center gap-2 md:order-2 md:ml-0">
                         {/* <div
-                            className="cursor-pointer p-2 text-xl text-dark hover:text-indigo-600"
+                            className="cursor-pointer p-2 text-xl text-dark hover:text-blue-600"
                             onClick={handleSearchModalOpen}
                         >
                             <IoSearch />
@@ -190,14 +190,14 @@ const Header: React.FC = ({logo}: {logo?: string | undefined}) => {
                         <DarkModeSwitch />
                         {navConfig?.ctaButtons?.map((button) => (
                             <Link
-                                href="https://paperchat.io/"
+                                href="#"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className={`${
                                     button.variant == "outline"
-                                        ? "bg-transparent text-indigo-600 hover:bg-indigo-600 hover:text-slate-200"
-                                        : "bg-indigo-600 text-slate-200 hover:bg-transparent hover:text-indigo-600"
-                                } cursor-pointer rounded-lg border  border-indigo-600 px-4 py-1 transition `}
+                                        ? "bg-transparent text-blue-600 hover:bg-blue-600 hover:text-slate-200"
+                                        : "bg-blue-600 text-slate-200 hover:bg-transparent hover:text-blue-600"
+                                } cursor-pointer rounded-full border  border-blue-600 px-8 py-[7px] transition text-[18px] font-[400]`}
                             >
                                 {button.text}
                             </Link>
