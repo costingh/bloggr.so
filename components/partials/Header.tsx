@@ -8,8 +8,9 @@ import { DarkModeSwitch } from "@/components/DarkModeSwitch/DarkModeSwitch";
 
 import { Box, Stack, Text } from "@chakra-ui/react";
 import { MenuItem, NavbarConfig } from "@/lib/types";
+import Button from "../BlogSetup/blog/Widgets/Button";
 
-const Header: React.FC = ({logo}: {logo?: string | undefined}) => {
+const Header: React.FC = ({logo, brandColor}: {logo?: string, brandColor?: string}) => {
     const [navFixed, setNavFixed] = useState(false);
     const [searchModal, setSearchModal] = useState(false);
 
@@ -21,7 +22,7 @@ const Header: React.FC = ({logo}: {logo?: string | undefined}) => {
     };
 
     const navConfig: NavbarConfig = {
-        // brandName: "Bloggr",
+        brandName: "Bloggr",
         logo: {
             src: logo || '',
             redirectUrl: "/",
@@ -57,6 +58,14 @@ const Header: React.FC = ({logo}: {logo?: string | undefined}) => {
             },
         ],
     };
+
+    const renderButtons = (): JSX.Element | null => {
+        return <>
+            {navConfig?.ctaButtons?.map((button, index) => (
+                <Button key={index} brandColor={brandColor} variant={button.variant} text={button.text} link={button.link}/>
+            ))}
+        </>
+    }
 
     return (
         <Box
@@ -181,27 +190,16 @@ const Header: React.FC = ({logo}: {logo?: string | undefined}) => {
                         ))}
                     </ul>
                     <div className="order-1 ml-auto flex items-center gap-2 md:order-2 md:ml-0">
-                        {/* <div
+                        {/*TODO:
+
+                        <div
                             className="cursor-pointer p-2 text-xl text-dark hover:text-blue-600"
                             onClick={handleSearchModalOpen}
                         >
                             <IoSearch />
                         </div> */}
                         <DarkModeSwitch />
-                        {navConfig?.ctaButtons?.map((button) => (
-                            <Link
-                                href="#"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`${
-                                    button.variant == "outline"
-                                        ? "bg-transparent text-blue-600 hover:bg-blue-600 hover:text-slate-200"
-                                        : "bg-blue-600 text-slate-200 hover:bg-transparent hover:text-blue-600"
-                                } cursor-pointer rounded-full border  border-blue-600 px-8 py-[7px] transition text-[18px] font-[400]`}
-                            >
-                                {button.text}
-                            </Link>
-                        ))}
+                        {renderButtons()}
                     </div>
                     <SearchModal
                         searchModal={searchModal}

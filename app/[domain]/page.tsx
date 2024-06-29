@@ -83,6 +83,8 @@ export default async function SiteHomePage({
     const noindex = true;
     const canonical = "true";
 
+    const brandColor = '#0000FF';
+
     return (
         <>
             <Base
@@ -95,6 +97,7 @@ export default async function SiteHomePage({
                 logo={data?.logo || ''}
                 noindex={noindex}
                 canonical={canonical}
+                brandColor={brandColor}
             >
                 <section className="section">
                     <div className="container">
@@ -119,7 +122,7 @@ export default async function SiteHomePage({
                             basePath={`/${params.domain}`} // Base path for pagination links
                         />
                     </div>
-                    <CallToActionBanner/>
+                    <CallToActionBanner brandColor={brandColor}/>
                 </section>
             </Base>
         </>

@@ -19,6 +19,7 @@ interface BaseLayoutProps {
     canonical?: string;
     children: React.ReactNode;
     logo?: string;
+    brandColor?: string;
 }
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({
@@ -29,14 +30,15 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({
     noindex,
     canonical,
     children,
-    logo
+    logo,
+    brandColor
 }) => {
     const { meta_image, meta_author, meta_description } = config.metadata;
     const { base_url } = config.site;
     const router = useRouter();
 
     return (
-        <React.Fragment style={{overflowX: 'hidden'}}>
+        <div className='overflow-x-hidden'>
             <Head>
                 {/* title */}
                 <title>
@@ -126,10 +128,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({
                 />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
-            <Header logo={logo} />
+            <Header logo={logo} brandColor={brandColor} />
             {children}
             <Footer logo={logo} />
-        </React.Fragment>
+        </div>
     );
 };
 

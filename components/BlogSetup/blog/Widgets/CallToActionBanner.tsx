@@ -18,6 +18,8 @@ import { brandName, demoCalendlyLink } from "@/config/config";
 import { Section } from "@/components/atoms/Section/Section";
 import { useColorModeValues } from "@/lib/hooks/useColorModeValues";
 
+import ButtonComponent from "@/components/BlogSetup/blog/Widgets/Button";
+
 type FeaturesType = {
     text?: string;
     list?: string[];
@@ -34,7 +36,7 @@ type CallToActionContentType = {
     features: FeaturesType;
 };
 
-export const CallToActionBanner = () => {
+export const CallToActionBanner = ({brandColor} : {brandColor?: string}) => {
     const router = useRouter();
     const { user } = useIsLogged();
 
@@ -133,35 +135,13 @@ export const CallToActionBanner = () => {
                                 placeholder="john@doe.com"
                             />
                         )}
-                        <Button
-                            size="md"
-                            variant="solid"
-                            colorScheme="brand"
-                            color={ctaColor}
-                            bgColor={ctaBgColor}
-                            // h="50px"
-                            // minH="50px"
-                            // w="220px"
-                            px="40px"
-                            py="15px"
-                            borderRadius="13px"
-                            onClick={() => handleCtaButtonCLick(CallToActionContent?.button?.type)}
-                            isLoading={isLoadingCta}
-                            rightIcon={<TbArrowRight />}
-                            sx={{
-                                svg: {
-                                    transition: "all .15s linear",
-                                    transform: "translateX(0px)",
-                                },
-                            }}
-                            _hover={{
-                                svg: {
-                                    transform: "translateX(4px)",
-                                },
-                            }}
-                        >
-                            {CallToActionContent?.button?.text || "-"}
-                        </Button>
+
+                        <ButtonComponent
+                            brandColor={brandColor}
+                            text={CallToActionContent?.button?.text || "-"} 
+                        />
+
+                       
                     </Flex>
                 </Stack>
 
