@@ -70,7 +70,8 @@ const Header: React.FC = ({logo, brandColor}: {logo?: string, brandColor?: strin
     return (
         <Box
             background={colorSchemeSolid}
-            className={`sticky top-0 z-50 w-full border-b-[1px] py-1 transition-all border-[${borderColor}] ${
+            // with border : border-b-[1px]  border-[${borderColor}]
+            className={`sticky top-0 z-50 w-full py-1 transition-all ${
                 navFixed ? "shadow" : ""
             }`}
         >
