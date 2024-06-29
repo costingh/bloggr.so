@@ -32,4 +32,6 @@ export type NotionPost = {
 export type NotionQuery = {
     database_id : string;
     filter?: any;
+    sorts?: any;
+    page_size?: number;
 }

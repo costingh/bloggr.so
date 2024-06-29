@@ -99,7 +99,7 @@ const getFeaturedPost = (posts: NotionPost[], mapping: any) => {
     return {
         image: extractPostImage(p, mapping),
         date: extractPostPublishDate(p, mapping),
-        categories: ["music", "art"],
+        categories: extractPostCategory(p, mapping),
         title: extractPostTitle(p, mapping),
         authors: ["Costin Gheorghe"],
         slug: extractPostSlug(p, mapping),

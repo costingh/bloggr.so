@@ -44,6 +44,13 @@ export async function getPostsForSite(domain: string, databaseId: string, catego
 
             let QUERY: NotionQuery = {
                 database_id: extractIdFromUrl(databaseId || ""),
+                sorts: [
+                    {
+                        "property": "Publish Date",
+                        "direction": "descending"
+                    }
+                ],
+                page_size: 20
             };
 
             if(category) {
@@ -58,7 +65,7 @@ export async function getPostsForSite(domain: string, databaseId: string, catego
             console.log(QUERY)
 
             const resp = await notion.databases.query(QUERY);
-    
+            console.log(resp)
             return resp?.results || [];
         },
         [`${domain}-posts`],

@@ -258,6 +258,7 @@ export default async function SitePostPage({
                 slug={slug}
                 categories={post?.categories || null}
                 relatedPosts={relatedPosts}
+                post={post}
                 headings={extractHeadingsFromMDX(post?.content)}
             />
         </Base>

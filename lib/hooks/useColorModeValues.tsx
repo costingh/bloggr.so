@@ -2,12 +2,12 @@ import { useColorModeValue } from "@chakra-ui/react";
 
 export const useColorModeValues = () => {
     const primaryTextColor = useColorModeValue(
-        "blackAlpha.800",
+        "rgba(0,0,0,1)",
         "whiteAlpha.800",
     );
 
     const secondaryTextColor = useColorModeValue(
-        "blackAlpha.600",
+        "rgb(99, 99, 99)",
         "whiteAlpha.600",
     );
 

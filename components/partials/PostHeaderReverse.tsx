@@ -22,7 +22,7 @@ type HighlightedPostType = {
     authors: Author[];
 };
 
-const HighlightedPost = ({ post, authors }: HighlightedPostType) => {
+function PostHeaderReverse({ post, authors }: HighlightedPostType) {
     const { primaryTextColor, baseTextColor, borderColor, secondaryTextColor } =
         useColorModeValues();
     const boxBgColor = useColorModeValue("white", "transparent");
@@ -32,73 +32,57 @@ const HighlightedPost = ({ post, authors }: HighlightedPostType) => {
     const secondaryCtaHoverColor = useColorModeValue("brand.900", "brand.900");
 
     const { summary_length } = config.settings;
+
     return (
-        <Link href={`/${post.slug}`}>
-            <div className="mb-20  grid place-items-center lg:grid-cols-2">
-                <div className="mb-5 w-full overflow-hidden rounded-xl lg:mb-0">
-                    {post.image ? (
-                        <Image
-                            src={post?.image?.url || "/placeholder.png"}
-                            alt={
-                                post?.image?.name || post?.title || "Not Found"
-                            }
-                            width={800}
-                            height={445}
-                            priority={true}
-                            style={{ height: "100%", objectFit: "cover" }}
-                        />
-                    ) : (
-                        <div
-                            style={{
-                                width: "100%",
-                                maxWidth: "800px",
-                                height: "445px",
-                                background: "rgb(79, 70, 229)",
-                            }}
-                        ></div>
-                    )}
-                    {/* <img
-                    style={{ objectFit: "cover" }}
-                    src={post?.image?.url || '/placeholder.png'}
-                    alt={post?.image?.name || 'Not Found'}
-                /> */}
-                </div>
-                <div className="pl-0 lg:p-10">
+        <div className="container">
+            <div className="mb-20 grid place-items-center lg:grid-cols-2">
+                <div className="mb-5 pl-0 lg:mb-0">
                     {/* <span className="font-[500]">Resources</span> */}
 
                     <Text
-                        className="block text-[25px] leading-[1.25em] font-[800] hover:text-underline lg:text-[40px]"
+                        className="hover:text-underline block text-[25px] font-[800] leading-[1.25em] lg:text-[40px]"
                         color={primaryTextColor}
                     >
                         {post.title}
                     </Text>
-                    <div className="my-2 lg:mb-4 lg:mt-6 flex items-center gap-5">
-                        <Text className="text-[14px] font-[400] inline" color={secondaryTextColor}>
-                            {post.date}
-                        </Text>
-                        <Flex className="items-center">
-                            <CgRead />
-                            <Text className="ml-1 text-[14px] font-[400]" color={secondaryTextColor}>{readingTime(post.content)?.text || ''}</Text>
-                        </Flex>
-                        {post?.categories?.length && post?.categories?.map((category, i) => (
-                            <>
-                                {humanize(category) && <Link
-                                href={`/categories/${slugify(category)}`}
-                                className="mr-2 cursor-pointer rounded-full bg-gray-200 px-[5px] py-[2px] text-xs font-normal text-gray-500 transition hover:bg-gray-300"
-                                key={`category-${i}`}
-                            >
-                                {humanize(category)}
-                            </Link>}
-                            </>
-                        ))}
-                    </div>
-                    <Text
-                        className="my-[20px] text-[18px] leading-[1.5] font-[400] text-[rgb(0, 0, 0)]"
-                    >
+                    <Text className="text-[rgb(0, 0, 0)] my-[20px] text-[18px] font-[400] leading-[1.5rem]">
                         {post.content &&
                             post.content.slice(0, Number(summary_length))}
                         ...
                     </Text>
+                    <div className="my-2 flex items-center gap-5 lg:mb-4 lg:mt-6">
+                        <Text
+                            className="inline text-[14px] font-[400]"
+                            color={secondaryTextColor}
+                        >
+                            {post.date}
+                        </Text>
+                        <Flex className="items-center">
+                            <CgRead />
+                            <Text
+                                className="ml-1 text-[14px] font-[400]"
+                                color={secondaryTextColor}
+                            >
+                                {readingTime(post.content)?.text || ""}
+                            </Text>
+                        </Flex>
+                        {post?.categories?.length &&
+                            post?.categories?.map((category, i) => (
+                                <>
+                                    {humanize(category) && (
+                                        <Link
+                                            href={`/categories/${slugify(
+                                                category,
+                                            )}`}
+                                            className="mr-2 cursor-pointer rounded-full bg-gray-200 px-[5px] py-[2px] text-xs font-normal text-gray-500 transition hover:bg-gray-300"
+                                            key={`category-${i}`}
+                                        >
+                                            {humanize(category)}
+                                        </Link>
+                                    )}
+                                </>
+                            ))}
+                    </div>
                     <div className="mt-[15px] flex items-center gap-4 lg:mt-[30px]">
                         {authors.map((author, i) => (
                             <Link
@@ -133,9 +117,37 @@ const HighlightedPost = ({ post, authors }: HighlightedPostType) => {
                         ))}
                     </div>
                 </div>
+                <div className="w-full overflow-hidden">
+                    {post.image ? (
+                        <Image
+                            src={post?.image?.url || "/placeholder.png"}
+                            alt={
+                                post?.image?.name || post?.title || "Not Found"
+                            }
+                            width={600}
+                            height={400}
+                            priority={true}
+                            style={{ height: "100%", objectFit: "cover" }}
+                        />
+                    ) : (
+                        <div
+                            style={{
+                                width: "100%",
+                                maxWidth: "800px",
+                                height: "445px",
+                                background: "rgb(79, 70, 229)",
+                            }}
+                        ></div>
+                    )}
+                    {/* <img
+                    style={{ objectFit: "cover" }}
+                    src={post?.image?.url || '/placeholder.png'}
+                    alt={post?.image?.name || 'Not Found'}
+                /> */}
+                </div>
             </div>
-        </Link>
+        </div>
     );
-};
+}
 
-export default HighlightedPost;
+export default PostHeaderReverse;

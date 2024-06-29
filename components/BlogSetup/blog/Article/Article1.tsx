@@ -15,11 +15,10 @@ import { ReadingProgress } from "../ReadingProgress/ReadingProgress";
 import { useColorModeValues } from "@/lib/hooks/useColorModeValues";
 import { Post } from "@/types/post.types";
 import RelatedPosts from "./RelatedPosts";
-
-interface Section {
-    sectionTitle: string;
-    subsections?: Section[];
-}
+import PostHeaderReverse from "@/components/partials/PostHeaderReverse";
+import { Section } from "@/lib/types";
+import CallToActionStickyColumn from "../Widgets/CallToActionStickyColumn";
+import BlogArticleRightColumn from "../Widgets/BlogArticleRightColumn";
 
 interface Props {
     readingTime: {
@@ -36,6 +35,7 @@ interface Props {
     categories?: string[];
     relatedPosts?: Post[];
     headings?: Section[];
+    post: Post;
 }
 
 const Article1 = ({
@@ -48,12 +48,13 @@ const Article1 = ({
     categories,
     relatedPosts,
     headings,
+    post
 }: Props) => {
     const topRef = useRef(null);
     const contentRef = useRef(null);
-    const blogContentRef = useRef(null);
+    // const blogContentRef = useRef(null);
 
-    const { primaryTextColor, baseTextColor } = useColorModeValues();
+    const { primaryTextColor, secondaryTextColor, baseTextColor, borderColor } = useColorModeValues();
 
     // useEffect(() => {
     //     const handleScroll = () => {
@@ -73,12 +74,23 @@ const Article1 = ({
     //     };
     // }, []);
 
+    const authors = [
+        {
+            image: "/author.jpg",
+            title: "Costin Gheorghe",
+        },
+    ];
     return (
         <>
             <Flex ref={topRef}></Flex>
             <ReadingProgress topRef={topRef} contentRef={contentRef}/>
             <main ref={contentRef} style={{  }}>
-                <Box
+                <div className="mt-[50px]"></div>
+                <PostHeaderReverse
+                    post={post}
+                    authors={authors}
+                />
+                {/* <Box
                     sx={{ width: "100%" }}
                     background={baseTextColor[50]}
                     mb={14}
@@ -173,65 +185,15 @@ const Article1 = ({
                             </Flex>
                         )}
                     </Flex>
-                </Box>
+                </Box> */}
+                <div className="mt-[150px]"></div>
                 <Container maxW="container.xl">
                     <Flex sx={{ width: "100%" }}>
-                        <Box
-                            ref={blogContentRef}
-                            sx={{
-                                width: "300px",
-                                height: '250px', // TODO - calculate this dynamically
-                                position: ["sticky", '-webkit-sticky'],
-                                top: '100px',
-                                overflow: 'auto',
-                            }}
-                        >
-                            <Text
-                                color={baseTextColor[600]}
-                                sx={{
-                                    fontSize: "16px",
-                                    lineHeight: "20px",
-                                    fontWeight: 700,
-                                    mb: "15px",
-                                }}
-                            >
-                                TABLE OF CONTENTS
-                            </Text>
-                            {headings?.map((heading, index) => (
-                                <Box key={index}>
-                                    <Text
-                                        sx={{
-                                            color: baseTextColor[500],
-                                            fontSize: "16px",
-                                            fontWeight: 600,
-                                            lineHeight: "20px",
-                                        }}
-                                        mb={2}
-                                    >
-                                        {heading.sectionTitle}
-                                    </Text>
-                                    {heading?.subsections?.map(
-                                        (subsection, subIndex) => (
-                                            <Box key={subIndex}>
-                                                <Text
-                                                    sx={{
-                                                        paddingLeft: "25px",
-                                                        fontSize: "16px",
-                                                        fontWeight: 500,
-                                                        color: baseTextColor[500],
-                                                    }}
-                                                >
-                                                    {subsection.sectionTitle}
-                                                </Text>
-                                            </Box>
-                                        )
-                                    )}
-                                </Box>
-                            ))}
-                        </Box>
-                        <Box sx={{ width: "100%", paddingLeft: '40px' }}>
+                        <CallToActionStickyColumn headings={headings}/>
+                        <Box sx={{ width: "100%", padding: '0px 40px' }}>
                             <ArticleContent content={content} />
                         </Box>
+                        <BlogArticleRightColumn/>
                     </Flex>
                 </Container>
             </main>

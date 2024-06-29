@@ -54,8 +54,8 @@ export default async function SiteHomePage({
         notFound();
     }
 
-    const postsPerPage = 10; // Number of posts per page
-    const currentPage = searchParams?.page ? parseInt(searchParams.page as string, 10) : 1;
+    const postsPerPage = 20; // Number of posts per page
+    const currentPage = searchParams?.page ? parseInt(searchParams.page as string, 20) : 1;
     const category = searchParams?.category;
 
     const startIndex = (currentPage - 1) * postsPerPage;
@@ -71,8 +71,10 @@ export default async function SiteHomePage({
         },
     ];
 
-    const featuredPost = getFeaturedPost(posts as NotionPost[], data?.mapping);
+    let featuredPost = getFeaturedPost(posts as NotionPost[], data?.mapping);
+    
     const currentPosts = processPosts(posts as NotionPost[], data?.mapping);
+    if(!featuredPost) featuredPost = currentPosts[currentPosts?.length]
 
     // Paginate posts
     const paginatedPosts = currentPosts.slice(startIndex, endIndex);

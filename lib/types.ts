@@ -110,3 +110,8 @@ export type FooterConfig = {
     copyright?: string
     columns: FooterColumn[]
 }
+
+export type Section = {
+    sectionTitle: string;
+    subsections?: Section[];
+}
