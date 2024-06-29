@@ -56,13 +56,13 @@ export default async function SiteHomePage({
     }
 
     const postsPerPage = 20; // Number of posts per page
-    const currentPage = searchParams?.page ? parseInt(searchParams.page as string, 20) : 1;
+    const currentPage = searchParams?.page ? parseInt(searchParams.page as string, 10) : 1;
     const category = searchParams?.category;
 
     const startIndex = (currentPage - 1) * postsPerPage;
     const endIndex = currentPage * postsPerPage;
 
-    const posts =
+    const {posts} =
         (await getPostsForSite(domain, data?.postsDatabaseId || "", category)) || [];
 
     const authors = [

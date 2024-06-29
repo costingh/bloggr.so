@@ -11,7 +11,7 @@ export default async function Sitemap() {
                 `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`,
             ) ?? "vercel.pub";
 
-    const posts = await getPostsForSite(domain);
+    const {posts} = await getPostsForSite(domain);
 
     return [
         {

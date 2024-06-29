@@ -34,4 +34,5 @@ export type NotionQuery = {
     filter?: any;
     sorts?: any;
     page_size?: number;
+    start_cursor?: string;
 }

@@ -12,7 +12,7 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useColorModeValues } from "@/lib/hooks/useColorModeValues";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 
 interface PaginationProps {
     totalPages: number;
@@ -57,7 +57,7 @@ const Pagination: React.FC<PaginationProps> = ({
                             />
                         </Box>
                     </PaginationItem>
-                    <div>
+                    <Flex gap='2'>
                         {[...Array(totalPages)].map((_, index) => (
                             <PaginationItem key={index}>
                                 <PaginationLink
@@ -77,7 +77,7 @@ const Pagination: React.FC<PaginationProps> = ({
                                 <PaginationEllipsis />
                             </PaginationItem>
                         )}
-                    </div>
+                    </Flex>
                     <PaginationItem>
                         <Box
                             border="1px solid gray"

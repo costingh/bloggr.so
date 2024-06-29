@@ -168,7 +168,7 @@ export default async function SitePostPage({
         },
     });
 
-    const relatedPostsList = await getPostsForSite(
+    const {posts: relatedPostsList} = await getPostsForSite(
         domain,
         siteData?.postsDatabaseId || "",
     );

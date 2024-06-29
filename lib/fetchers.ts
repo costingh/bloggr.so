@@ -4,6 +4,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import { replaceExamples, replaceTweets } from "@/lib/remark-plugins";
 import { Client, APIErrorCode } from "@notionhq/client";
 import { NotionPost, NotionQuery } from "@/types/notion.types";
+import { extractIdFromUrl } from "@/lib/utils";
 
 export async function getSiteData(domain: string) {
     const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
@@ -25,48 +26,41 @@ export async function getSiteData(domain: string) {
     )();
 }
 
-const extractIdFromUrl = (url: string): string => {
-    const pattern = /([a-fA-F0-9]{32})/;
-    const match = url.match(pattern);
-    if (match) {
-        return match[1];
-    } else {
-        return "";
-    }
-};
-
-
-export async function getPostsForSite(domain: string, databaseId: string, category?: string) {
+export async function getPostsForSite(domain: string, databaseId: string, category?: string, next_cursor?: string) {
     const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
     return await unstable_cache(
         async () => {
 
-            let QUERY: NotionQuery = {
-                database_id: extractIdFromUrl(databaseId || ""),
+            const QUERY: NotionQuery = {
+                database_id: extractIdFromUrl(databaseId) || databaseId,
                 sorts: [
                     {
-                        "property": "Publish Date",
-                        "direction": "descending"
-                    }
-                ],
-                page_size: 20
-            };
-
-            if(category) {
-                QUERY.filter = {
-                    property: "Category",
-                    rich_text: {
-                      contains: category,
+                        property: "Publish Date",
+                        direction: "descending",
                     },
-                }
-            }
-
+                ],
+                page_size: 100,
+                ...(category && {
+                    filter: {
+                        property: "Category",
+                        rich_text: {
+                            contains: category,
+                        },
+                    },
+                }),
+                ...(next_cursor && { start_cursor: next_cursor }),
+            };
+            
             console.log(QUERY)
 
             const resp = await notion.databases.query(QUERY);
-            console.log(resp)
-            return resp?.results || [];
+
+            return {
+                posts: resp?.results || [],
+                next_cursor: resp?.next_cursor || null,
+                has_more: resp?.has_more || false
+            };
         },
         [`${domain}-posts`],
         {

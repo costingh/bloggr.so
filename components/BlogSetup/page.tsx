@@ -30,6 +30,7 @@ import { useColorModeValues } from "@/lib/hooks/useColorModeValues";
 import { useRouter } from "next/navigation";
 import { createSite } from "@/lib/actions";
 import va from "@vercel/analytics";
+import { extractIdFromUrl } from "@/lib/utils";
 
 type MappingType = {
 	draft: string;
@@ -131,20 +132,21 @@ export const BlogSetup = () => {
 	}, [data?.name]);
 
 	const handleDatabaseIdChange = (e: any) => {
-		setNotionDatabaseId(e.target.value);
+		const val = extractIdFromUrl(e.target.value);
+		setNotionDatabaseId(val);
 		// @ts-ignore
-		setData({ ...data, postsDatabaseId: e.target.value });
+		setData({ ...data, postsDatabaseId: val });
 	};
 
-	const extractIdFromUrl = (url: string): string => {
-		const pattern = /([a-fA-F0-9]{32})/;
-		const match = url.match(pattern);
-		if (match) {
-			return match[1];
-		} else {
-			return "";
-		}
-	};
+	// const extractIdFromUrl = (url: string): string => {
+	// 	const pattern = /([a-fA-F0-9]{32})/;
+	// 	const match = url.match(pattern);
+	// 	if (match) {
+	// 		return match[1];
+	// 	} else {
+	// 		return "";
+	// 	}
+	// };
 
 	const connectNotionDatabase = async () => {
 		setIsConnecting(true);
