@@ -52,13 +52,13 @@ const PostCard: React.FC<PostCardProps> = ({ post, authors }) => {
                         style={{ height: "100%", objectFit: "cover" }}
                     />
                 ) : (
-                    <div
+                    <Box
                         style={{
                             width: "800px",
                             height: "445px",
-                            background: "rgb(79, 70, 229)",
                         }}
-                    ></div>
+                        bgColor={borderColor}
+                    ></Box>
                 )}
             </div>
 
@@ -67,24 +67,26 @@ const PostCard: React.FC<PostCardProps> = ({ post, authors }) => {
                     <span className="mr-2 text-xs text-gray-500">
                         {post.date}
                     </span>
-                    {post.categories.map((category, i) => (
-                        <Link
+                    {post?.categories?.length && post?.categories?.map((category, i) => (
+                        <>
+                            {humanize(category) && <Link
                             href={`/categories/${slugify(category)}`}
                             className="mr-2 cursor-pointer rounded-full bg-gray-200 px-[5px] py-[2px] text-xs font-normal text-gray-500 transition hover:bg-gray-300"
                             key={`category-${i}`}
                         >
                             {humanize(category)}
-                        </Link>
+                        </Link>}
+                        </>
                     ))}
                 </div>
                 <h3 className="mb-3">
                    <Text color={primaryTextColor}
-                        className="block text-lg font-bold hover:text-indigo-600"
+                        className="block text-[20px] font-[900]"
                     >
                         {post.title}
                         </Text>
                 </h3>
-                <Text color={secondaryTextColor} className="text-sm text-gray-700">
+                <Text className="text-[15px] text-[rgb(0, 0, 0)]" >
                     {post.content &&
                         post.content
                             .slice(0, Number(summary_length))
