@@ -7,7 +7,8 @@ import { Author } from "@/types/author.types";
 import { Post } from "@/types/post.types";
 import config from "@/config/config.json";
 import { useParams, useRouter } from "next/navigation";
-
+import { CgRead } from "react-icons/cg";
+import readingTime from "reading-time";
 import { useColorModeValues } from "@/lib/hooks/useColorModeValues";
 import {
     Flex,
@@ -63,10 +64,16 @@ const PostCard: React.FC<PostCardProps> = ({ post, authors }) => {
             </div>
 
             <div className="">
-                <div className="my-3">
+                <Flex className="my-3 items-center gap-3">
                     <span className="mr-2 text-xs text-gray-500">
                         {post.date}
                     </span>
+
+                    <Flex className="items-center">
+                        <CgRead />
+                        <Text className="ml-1 text-[13px] font-[400]" color={secondaryTextColor}>{readingTime(post.content)?.text || ''}</Text>
+                    </Flex>
+
                     {post?.categories?.length && post?.categories?.map((category, i) => (
                         <>
                             {humanize(category) && <Link
@@ -78,7 +85,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, authors }) => {
                         </Link>}
                         </>
                     ))}
-                </div>
+                </Flex>
                 <h3 className="mb-3">
                    <Text color={primaryTextColor}
                         className="block text-[20px] font-[900]"
