@@ -301,7 +301,9 @@ export default async function SitePostPage({
         ],
     };
     
-    
+    // TODO
+    const brandColor = '#0000FF';
+
     return (
         <Base
             title={title}
@@ -314,7 +316,8 @@ export default async function SitePostPage({
             canonical={canonical}
             logo={siteData?.logo || ''}
             footerConfig={footerConfig}
-            >
+            brandColor={brandColor}
+        >
             <Article1
                 readingTime={{ text: readingTime(mdxSource?.content || '')?.text }}
                 title={post.title}
@@ -327,6 +330,7 @@ export default async function SitePostPage({
                 relatedPosts={relatedPosts}
                 post={post}
                 headings={extractHeadingsFromMDX(post?.content)}
+                brandColor={brandColor}
             />
         </Base>
     );

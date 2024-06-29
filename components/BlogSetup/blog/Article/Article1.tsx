@@ -36,6 +36,7 @@ interface Props {
     relatedPosts?: Post[];
     headings?: Section[];
     post: Post;
+    brandColor?: string;
 }
 
 const Article1 = ({
@@ -48,7 +49,8 @@ const Article1 = ({
     categories,
     relatedPosts,
     headings,
-    post
+    post,
+    brandColor
 }: Props) => {
     const topRef = useRef(null);
     const contentRef = useRef(null);
@@ -83,7 +85,7 @@ const Article1 = ({
     return (
         <>
             <Flex ref={topRef}></Flex>
-            <ReadingProgress topRef={topRef} contentRef={contentRef}/>
+            <ReadingProgress topRef={topRef} contentRef={contentRef} brandColor={brandColor}/>
             <main ref={contentRef} style={{  }}>
                 <div className="mt-[50px]"></div>
                 <PostHeaderReverse

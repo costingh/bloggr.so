@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 type ReadingProgressProps = {
     topRef: React.RefObject<HTMLDivElement>;
     contentRef: React.RefObject<HTMLDivElement>;
+    brandColor?: string;
 };
 
 export const ReadingProgress = ({
     topRef,
     contentRef,
+    brandColor
 }: ReadingProgressProps) => {
     const [width, setWidth] = useState(0);
 
@@ -31,8 +33,8 @@ export const ReadingProgress = ({
     });
 
     return (
-        <Flex w="100vw" position="fixed" top="69px" left="0" sx={{zIndex: 100}}>
-            <Flex w={`${width}%`} h="3px" bg="brand.500" />
+        <Flex w="100vw" position="fixed" top="80px" left="0" sx={{zIndex: 100}}>
+            <Flex w={`${width}%`} h="3px" bg={brandColor || 'brand.500'} />
         </Flex>
     );
 };
