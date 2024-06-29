@@ -15,6 +15,7 @@ import Base from "@/layouts/BaseLayout";
 import Pagination from "@/components/partials/Pagination";
 import {CallToActionBanner} from "@/components/BlogSetup/blog/Widgets/CallToActionBanner";
 import CategoryTabs from "@/components/BlogSetup/blog/Widgets/CategoryTabs";
+import { FooterConfig } from "@/lib/types";
 
 export async function generateStaticParams() {
     const allSites = await prisma.site.findMany({
@@ -85,6 +86,70 @@ export default async function SiteHomePage({
 
     const brandColor = '#0000FF';
 
+    // TODO: fetch from notion
+
+    const footerConfig: FooterConfig = {
+        brandName: 'Bloggr',
+        logo: {
+            src: '',
+            redirectUrl: "/",
+        },
+        slogan: "Setup your blog in minutes",
+        copyright: "© Copyright " + (new Date().getFullYear()) + " Bloggr. All rights reserved.",
+        columns: [
+            {
+                columnTitle: "LINKS",
+                links: [
+                    {
+                        name: "Blog",
+                        url: "https://......",
+                    },
+                    {
+                        name: "Pricing",
+                        url: "https://......",
+                    },
+                    {
+                        name: "Affiliate - Earn 30%",
+                        url: "https://......",
+                    },
+                ],
+            },
+            {
+                columnTitle: "LEGAL",
+                links: [
+                    {
+                        name: "Privacy Policy",
+                        url: "https://......",
+                    },
+                    {
+                        name: "Terms and Conditions",
+                        url: "https://......",
+                    },
+                ],
+            },
+            {
+                columnTitle: "SOCIAL",
+                socials: [
+                    {
+                        platform: "Discord",
+                        tooltip: "Join Discord Community",
+                        url: "https://......",
+                    },
+                    {
+                        platform: "X",
+                        tooltip: "Follow X Account",
+                        url: "https://......",
+                    },
+                    {
+                        platform: "YouTube",
+                        tooltip: "Join YouTube Channel",
+                        url: "https://......",
+                    },
+                ],
+            },
+        ],
+    };
+
     return (
         <>
             <Base
@@ -98,6 +163,7 @@ export default async function SiteHomePage({
                 noindex={noindex}
                 canonical={canonical}
                 brandColor={brandColor}
+                footerConfig={footerConfig}
             >
                 <section className="section">
                     <div className="container">

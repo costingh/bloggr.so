@@ -9,6 +9,7 @@ import Header from "@/components/partials/Header";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
 import { Footer } from '@/components/landing-page/Footer';
+import { FooterConfig } from '@/lib/types';
 
 interface BaseLayoutProps {
     title?: string;
@@ -20,6 +21,7 @@ interface BaseLayoutProps {
     children: React.ReactNode;
     logo?: string;
     brandColor?: string;
+    footerConfig?: FooterConfig;
 }
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({
@@ -31,7 +33,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({
     canonical,
     children,
     logo,
-    brandColor
+    brandColor,
+    footerConfig
 }) => {
     const { meta_image, meta_author, meta_description } = config.metadata;
     const { base_url } = config.site;
@@ -130,7 +133,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({
             </Head>
             <Header logo={logo} brandColor={brandColor} />
             {children}
-            <Footer logo={logo} />
+            <Footer logo={logo} footerConfig={footerConfig} />
         </div>
     );
 };

@@ -22,72 +22,9 @@ import { useColorModeValues } from "@/lib/hooks/useColorModeValues";
 import { Routes } from "@/config/routes";
 import { FooterConfig } from "@/lib/types";
 import Logo from "../Logo";
-import { brandName } from './../../config/config';
 
-export const Footer = ({logo} : {logo?: string | undefined}) => {
+export const Footer = ({logo, footerConfig} : {logo?: string | undefined, footerConfig: FooterConfig}) => {
     const { secondaryTextColor, borderColor, primaryTextColor } = useColorModeValues();
-
-    const footerConfig: FooterConfig = {
-        brandName: 'Bloggr',
-        logo: {
-            src: logo || '',
-            redirectUrl: "/",
-        },
-        slogan: "Setup your blog in minutes",
-        copyright: "© Copyright " + (new Date().getFullYear()) + " Bloggr. All rights reserved.",
-        columns: [
-            {
-                columnTitle: "LINKS",
-                links: [
-                    {
-                        name: "Blog",
-                        url: "https://......",
-                    },
-                    {
-                        name: "Pricing",
-                        url: "https://......",
-                    },
-                    {
-                        name: "Affiliate - Earn 30%",
-                        url: "https://......",
-                    },
-                ],
-            },
-            {
-                columnTitle: "LEGAL",
-                links: [
-                    {
-                        name: "Privacy Policy",
-                        url: "https://......",
-                    },
-                    {
-                        name: "Terms and Conditions",
-                        url: "https://......",
-                    },
-                ],
-            },
-            {
-                columnTitle: "SOCIAL",
-                socials: [
-                    {
-                        platform: "Discord",
-                        tooltip: "Join Discord Community",
-                        url: "https://......",
-                    },
-                    {
-                        platform: "X",
-                        tooltip: "Follow X Account",
-                        url: "https://......",
-                    },
-                    {
-                        platform: "YouTube",
-                        tooltip: "Join YouTube Channel",
-                        url: "https://......",
-                    },
-                ],
-            },
-        ],
-    };
 
     return (
         <Section flexDir="column" mt="80px">
@@ -114,10 +51,10 @@ export const Footer = ({logo} : {logo?: string | undefined}) => {
                         <Stack direction="row" alignItems="center">
                             <Flex>
                                 <Logo
-                                    src={footerConfig?.logo?.src}
-                                    redirectUrl={
-                                        footerConfig?.logo?.redirectUrl
-                                    }
+                                    src={logo}
+                                    // redirectUrl={
+                                    //     logo?.redirectUrl
+                                    // }
                                 />
                             </Flex>
                             {footerConfig?.brandName && <Text fontWeight={700} fontSize="18px" color={primaryTextColor}>

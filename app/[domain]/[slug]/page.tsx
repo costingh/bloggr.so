@@ -42,6 +42,7 @@ import { YouTubeEmbed } from "@/components/BlogSetup/blog/Article/YouTubeEmbed";
 import { TweetEmbed } from "@/components/BlogSetup/blog/Article/TweetEmbed";
 import Base from "@/layouts/BaseLayout";
 import Header from "@/components/partials/Header";
+import { FooterConfig } from "@/lib/types";
 
 interface Section {
     sectionTitle: string;
@@ -237,6 +238,70 @@ export default async function SitePostPage({
         },
     ];
 
+    // TODO: fetch from database
+    const footerConfig: FooterConfig = {
+        brandName: 'Bloggr',
+        logo: {
+            src: '',
+            redirectUrl: "/",
+        },
+        slogan: "Setup your blog in minutes",
+        copyright: "© Copyright " + (new Date().getFullYear()) + " Bloggr. All rights reserved.",
+        columns: [
+            {
+                columnTitle: "LINKS",
+                links: [
+                    {
+                        name: "Blog",
+                        url: "https://......",
+                    },
+                    {
+                        name: "Pricing",
+                        url: "https://......",
+                    },
+                    {
+                        name: "Affiliate - Earn 30%",
+                        url: "https://......",
+                    },
+                ],
+            },
+            {
+                columnTitle: "LEGAL",
+                links: [
+                    {
+                        name: "Privacy Policy",
+                        url: "https://......",
+                    },
+                    {
+                        name: "Terms and Conditions",
+                        url: "https://......",
+                    },
+                ],
+            },
+            {
+                columnTitle: "SOCIAL",
+                socials: [
+                    {
+                        platform: "Discord",
+                        tooltip: "Join Discord Community",
+                        url: "https://......",
+                    },
+                    {
+                        platform: "X",
+                        tooltip: "Follow X Account",
+                        url: "https://......",
+                    },
+                    {
+                        platform: "YouTube",
+                        tooltip: "Join YouTube Channel",
+                        url: "https://......",
+                    },
+                ],
+            },
+        ],
+    };
+    
+    
     return (
         <Base
             title={title}
@@ -247,7 +312,9 @@ export default async function SitePostPage({
             image={image}
             noindex={noindex}
             canonical={canonical}
-        >
+            logo={siteData?.logo || ''}
+            footerConfig={footerConfig}
+            >
             <Article1
                 readingTime={{ text: readingTime(mdxSource?.content || '')?.text }}
                 title={post.title}
